@@ -1,0 +1,19 @@
+name: Question
+description: How do I...? Something unclear in the documentation?
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: The [User Guide](https://github.com/looki666/SceneForge/blob/main/docs/SceneForge_User_Guide.pdf) answers most questions - "Troubleshooting" is chapter 11.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: SceneForge and 3ds Max versions
+      placeholder: "SceneForge 1.0.0, 3ds Max 2027"

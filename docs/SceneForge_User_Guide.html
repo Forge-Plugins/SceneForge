@@ -1,0 +1,476 @@
+<meta http-equiv="content-language" content="en">
+<title>SceneForge Outliner — User Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F6F7F8; --surface:#FFFFFF; --surface-2:#EFF1F3;
+  --ink:#191D22; --ink-2:#3D454E; --muted:#626C78; --rule:#DDE1E6;
+  --accent:#9A5400; --accent-soft:#F2E6D8;
+  --pass:#1B6E52; --pass-soft:#E0EFE8;
+  --warn:#A3241D; --warn-soft:#F6E3E1;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#15181C; --surface:#1C2126; --surface-2:#22282E;
+    --ink:#E6EAEE; --ink-2:#C2CAD2; --muted:#96A1AE; --rule:#2C333A;
+    --accent:#E0912E; --accent-soft:#33281A;
+    --pass:#5CC49E; --pass-soft:#172A24;
+    --warn:#F0857D; --warn-soft:#2E1D1C;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#15181C; --surface:#1C2126; --surface-2:#22282E;
+  --ink:#E6EAEE; --ink-2:#C2CAD2; --muted:#96A1AE; --rule:#2C333A;
+  --accent:#E0912E; --accent-soft:#33281A;
+  --pass:#5CC49E; --pass-soft:#172A24;
+  --warn:#F0857D; --warn-soft:#2E1D1C;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.62;
+  margin:0; padding:0;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px 96px;display:grid;grid-template-columns:210px minmax(0,1fr);gap:56px}
+@media (max-width:900px){.wrap{grid-template-columns:1fr;gap:0}nav.toc{position:static!important;border-right:0!important;padding-top:0!important}}
+
+/* ---- naglowek ---- */
+header{grid-column:1/-1;padding:64px 0 40px;border-bottom:1px solid var(--rule);margin-bottom:44px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+h1{font-family:var(--sans);font-weight:600;font-size:clamp(34px,5vw,50px);line-height:1.06;letter-spacing:-.022em;margin:0;text-wrap:balance}
+.lede{font-size:19px;color:var(--ink-2);max-width:60ch;margin:18px 0 0}
+.meta{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:24px;display:flex;flex-wrap:wrap;gap:6px 22px}
+
+/* ---- spis ---- */
+nav.toc{position:sticky;top:24px;align-self:start;padding-top:4px;font-family:var(--sans);font-size:13.5px;line-height:1.5}
+nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+nav.toc a{color:var(--muted);text-decoration:none;display:block;border-left:2px solid transparent;padding-left:11px}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent);border-left-color:var(--accent)}
+nav.toc .num{font-family:var(--mono);font-size:11px;color:var(--rule);margin-right:7px}
+
+main{min-width:0}
+section{margin-bottom:58px;scroll-margin-top:20px}
+h2{font-family:var(--sans);font-weight:600;font-size:25px;letter-spacing:-.014em;margin:0 0 6px;text-wrap:balance}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--accent);margin-right:11px;font-weight:400}
+h3{font-family:var(--sans);font-weight:600;font-size:16.5px;margin:30px 0 8px;letter-spacing:-.005em}
+p{margin:0 0 14px;max-width:66ch}
+ul,ol.steps{max-width:66ch;padding-left:20px;margin:0 0 14px}
+li{margin-bottom:7px}
+code{font-family:var(--mono);font-size:.855em;background:var(--surface-2);padding:1.5px 5px;border-radius:3px;color:var(--ink)}
+strong{font-weight:600}
+a{color:var(--accent)}
+
+/* ---- tabele ---- */
+.tbl{overflow-x:auto;margin:16px 0 22px;border-top:1.5px solid var(--ink);border-bottom:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:14px;line-height:1.45}
+th{text-align:left;font-weight:600;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:9px 14px 9px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:9px 14px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{font-family:var(--mono);font-size:12.5px;white-space:nowrap;color:var(--accent);font-weight:500}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+
+/* ---- bloki ---- */
+.note{border-left:2.5px solid var(--accent);background:var(--accent-soft);padding:14px 18px;margin:20px 0;font-size:15.5px}
+.note.pass{border-left-color:var(--pass);background:var(--pass-soft)}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note p{margin:0 0 8px;max-width:62ch}
+.note p:last-child{margin:0}
+.note .h{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px}
+.note .h{color:var(--accent)} .note.pass .h{color:var(--pass)} .note.warn .h{color:var(--warn)}
+
+pre{font-family:var(--mono);font-size:13px;line-height:1.55;background:var(--surface-2);border:1px solid var(--rule);border-radius:4px;padding:13px 15px;overflow-x:auto;margin:14px 0}
+
+/* ---- liczby ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0 24px}
+.stat{background:var(--surface);padding:15px 17px}
+.stat .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:23px;font-weight:500;color:var(--accent);letter-spacing:-.02em}
+.stat .l{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:3px;line-height:1.35}
+footer{grid-column:1/-1;border-top:1px solid var(--rule);padding-top:22px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">User guide &middot; 3ds Max 2027</p>
+  <h1>SceneForge Outliner</h1>
+  <p class="lede">A scene browser that does not freeze Max. This guide describes the release for 3ds Max 2027 and gives numbers measured on a scene of 50&nbsp;026 objects.</p>
+  <div class="meta"><span>panel v135</span><span>.NET 10 core</span><span>Qt 6.8.3 / PySide6</span><span>reference scene SF-50k</span><span><a href="SceneForge_dokumentacja_v014_PL.html">Wersja polska</a></span></div>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <ol>
+    <li><a href="#instalacja"><span class="num">01</span>Installation</a></li>
+    <li><a href="#start"><span class="num">02</span>First run</a></li>
+    <li><a href="#filtr"><span class="num">03</span>Filter language</a></li>
+    <li><a href="#kolumny"><span class="num">04</span>Columns</a></li>
+    <li><a href="#soczewki"><span class="num">05</span>Lenses</a></li>
+    <li><a href="#skroty"><span class="num">06</span>Shortcuts</a></li>
+    <li><a href="#raporty"><span class="num">07</span>Scene reports</a></li>
+    <li><a href="#turbo"><span class="num">08</span>Explorer Turbo</a></li>
+    <li><a href="#wydajnosc"><span class="num">09</span>Performance</a></li>
+    <li><a href="#slad"><span class="num">10</span>Footprint in the scene</a></li>
+    <li><a href="#klopoty"><span class="num">11</span>Troubleshooting</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="instalacja">
+  <h2><span class="n">01</span>Installation</h2>
+  <p>Drag the received <code>.mzp</code> onto a 3ds Max viewport. The installer verifies every copied file by size and finishes with a check that walks the disk from scratch — if anything is missing it names it, instead of writing “done”.</p>
+  <p>This release requires 3ds Max 2027. The installer checks the Max version and stops if it does not match — instead of leaving you a full set of files and a panel that will not open.</p>
+  <p>The three places the files go:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>what</th><th>where</th></tr></thead>
+    <tbody>
+      <tr><td>core, panel, columns, scene listener</td><td><code>scripts\SceneForge\</code></td></tr>
+      <tr><td>the commands visible in Customize</td><td><code>usermacros\SceneForge.mcr</code></td></tr>
+      <tr><td>registration of the menu entry</td><td><code>scripts\startup\</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>Installing is repeatable: on every update the older panel versions are <strong>removed</strong> once the new ones are safely in place, and the final check requires exactly one panel to be left in the folder.</p>
+
+  <h3>Uninstalling</h3>
+  <pre>(SF_odinst = getFiles ((getDir #userScripts) + "\\SceneForge\\SceneForge_odinstaluj_v*.ms"); sort SF_odinst; if SF_odinst.count &gt; 0 then fileIn SF_odinst[SF_odinst.count] else messageBox "SceneForge is not installed.")</pre>
+  <p>It removes the columns from the native explorer, unregisters the scene listener, releases the core and deletes the files. <strong>It does not touch</strong> your keyboard assignments or panel preferences — after reinstalling, everything is as it was.</p>
+  <p>It removes only the files it put there itself — the installer leaves a list of them in the plugin folder. Your own script or note kept in that folder stays untouched, and so does the folder itself; the uninstaller writes down what it left behind and why.</p>
+</section>
+
+<section id="start">
+  <h2><span class="n">02</span>First run</h2>
+  <p>The panel does not start together with Max. Loading the core costs about a second and is meant to happen when you need it — not on every launch of the program.</p>
+  <ol class="steps">
+    <li><strong>Customize → Customize User Interface</strong>, category <code>SceneForge</code>.</li>
+    <li>There are two commands there: <em>SceneForge Outliner</em> and <em>SceneForge - Scene reports</em>. The command names stay in English in both language versions — Max remembers your keyboard assignments by them, so translating them would lose your settings. If you also installed the free <em>Explorer Turbo</em>, its command sits in the same category — that is the third one.</li>
+    <li>Assign a key to them, put them on a toolbar or into a quad menu.</li>
+  </ol>
+  <p>The entry in the main Max menu appears <strong>after restarting</strong> the program. That is not an oversight: in Max 2025+ the menu manager arrives only as a notification parameter, at the moment Max rebuilds the menus itself.</p>
+  <div class="stats">
+    <div class="stat"><div class="v">679 ms</div><div class="l">first run of the command</div></div>
+    <div class="stat"><div class="v">0–1 ms</div><div class="l">later ones — the panel only shows itself</div></div>
+    <div class="stat"><div class="v">101 ms</div><div class="l">snapshot of a 50 026 object scene</div></div>
+  </div>
+
+  <h3>The Menu button</h3>
+  <p>The first button on the bar: <strong>Menu</strong> — every panel command in groups (List and view, Viewport, Layers, Selection, Material, Objects, Reports and rules, Settings and tools), with tooltips and shortcuts on the right. The same as the palette (Ctrl+P), but without typing — the palette only works while the panel has focus, because in Max Ctrl+P is Pan. Next to Health there is a <strong>Reports</strong>button, and the side bar carries the Reports and Rules icons.</p>
+  <h3>What is new in v121–v133</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Reports › Timeline</td><td>Names of deleted objects, Ctrl+Z as its own kind</td><td>The name is recorded at the moment of the event, and deleted objects get their name from the snapshot difference (“Box001 (deleted)”). Undo and redo are recognisable in the table.</td></tr>
+      <tr><td class="k">panel</td><td>Selection history: Alt+Left / Alt+Right</td><td>Up to 50 recent selection sets, like back and forward in a browser; a new selection made after going back cuts off the “forward” branch. Objects that no longer exist are counted.</td></tr>
+      <tr><td class="k">above the list</td><td>View tabs</td><td>Saved views as tabs, in the order from the Manage views window (the same one as Ctrl+1…9). A click loads the view.</td></tr>
+      <tr><td class="k">palette</td><td>Annotations: export / import JSON</td><td>Tags, notes and pins by object name, out to a file and back (another version of the file, a colleague). The status bar lists the names that are missing; the import is one undo block.</td></tr>
+      <tr><td class="k">palette</td><td>Merge a file with name checking…</td><td>Names read from a .max file without opening it, a list of collisions with the scene, a prefix for the colliding ones; merged objects keep their names instead of Max's Box002. Note: the merge itself is not undone by Ctrl+Z (mergeMAXFile does not record history); the merged objects are left selected.</td></tr>
+      <tr><td class="k">palette</td><td>Differences between two .max files…</td><td>Only in A, only in B, common to both, by name and without opening the files; CSV. A rename cannot be recognised by name.</td></tr>
+      <tr><td class="k">Preferences › Render queue</td><td>EXPERIMENTAL: Render the selected cameras one after another</td><td>Each camera with the current renderer into folder\camera_name.png at the current resolution. Measured on Scanline, Arnold, V-Ray 7, Corona and FStorm. Max is blocked for the duration of the queue; the time depends on the renderer's own limits.</td></tr>
+      <tr><td class="k">Preferences › Język / Language</td><td>English interface (the default) or Polish</td><td>Labels, tooltips, menus, messages and the filter cheat sheet in the chosen language; changing it reloads the panel. Your own shortcuts and macros work in both languages (they are compared by key). The documentation comes in two versions: English (the default) and Polish. The installer copies both, side by side.</td></tr>
+      <tr><td class="k">side bar</td><td>Presentation mode icon</td><td>The same as Ctrl+Alt+X; the icon state follows the mode.</td></tr>
+      <tr><td class="k">chip bar</td><td>All / None / Invert</td><td>Like Display: All / None / Invert in the Scene Explorer; they act on the category chips, with a single filter recalculation.</td></tr>
+      <tr><td class="k">Preferences › Expert mode</td><td>EXPERIMENTAL: the panel stays in Expert mode</td><td>Ctrl+X in Max hides every dock; with this option the panel asks about Expert mode every 500 ms and returns to its place once the mode is on. Not verified with a floating panel or across several monitors.</td></tr>
+      <tr><td class="k">Ctrl+Alt+X</td><td>Presentation mode</td><td>Only the filter field and the list remain, font +3 pt; pressing it again restores exactly the previous layout. For video and for a laptop.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>What is new in v106–v118</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
+    <tbody>
+      <tr><td class="k">dock</td><td>Panel width</td><td>The toolbars wrap their rows, so a docked panel can be made narrow (the minimum dropped from 1218 px to about 240 px).</td></tr>
+      <tr><td class="k">row menu / palette</td><td>Paste names from the clipboard and select</td><td>The reverse of “Copy names”: names one per line, separated by commas or semicolons, become a selection; the status bar lists the ones that are missing.</td></tr>
+      <tr><td class="k">layer list</td><td>Solo a layer (Alt+click)</td><td>Only that layer stays on, the rest go off with their layout remembered; a second Alt+click restores it. One undo block. Also in the layer menu and the palette.</td></tr>
+      <tr><td class="k">list</td><td>Cameras and lights</td><td>A double click on a camera points the viewport at it; row menu: “Look through this camera”, “Turn lights on / off” (on or enabled, one undo block).</td></tr>
+      <tr><td class="k">above the list</td><td>Path bar</td><td>The ancestors of the current object as buttons (by handle, not by name); a click selects the ancestor. Palette: “Path bar: show or hide”.</td></tr>
+      <tr><td class="k">columns</td><td>Age</td><td>Time since the object last changed in this session (12 s, 5 min, 2.3 h); empty = untouched. The same counter as the filter <code>changed:</code>.</td></tr>
+      <tr><td class="k">columns, row menu, filter</td><td>Tags and notes</td><td>User properties <code>sf_tag</code> (labels separated by commas, a coloured dot) and <code>sf_note</code>; they are saved with the .max file and are visible in Object Properties › User Defined. Filter: <code>tag:urgent</code>, <code>tag:*</code>, <code>tag:0</code>, <code>note:word</code>.</td></tr>
+      <tr><td class="k">filter</td><td><code>map:</code></td><td>Objects whose material uses a map whose file matches the pattern: <code>map:wood*</code>, <code>map:*.hdr</code>, <code>map:tiles</code> (a substring of the file name).</td></tr>
+      <tr><td class="k">lens by material</td><td>Drag rows onto a material header</td><td>The objects take the material of that bucket (onto “(no material)” – the material is removed). One undo block.</td></tr>
+      <tr><td class="k">palette</td><td>Object visibility states…</td><td>Named snapshots of hidden and frozen flags per object, stored in the scene file; restoring one sets exactly that layout, undoable with a single Ctrl+Z.</td></tr>
+      <tr><td class="k">Preferences › Scene file</td><td>Panel settings inside the scene file</td><td>When a .max is saved the panel adds the filter, lens, columns, pins and budgets; opening a file that carries them brings them back. On by default; the palette also has “save now”.</td></tr>
+      <tr><td class="k">palette</td><td>Macros</td><td>“Macro: start recording” notes filters, palette/Menu/shortcut commands and row menu actions; “stop and save…” gives it a name. Every macro is a palette command (“Macro: name”), so it can get its own shortcut. The “Macros…” window runs and deletes them.</td></tr>
+      <tr><td class="k">Preferences › Footer counters</td><td>EXPERIMENTAL: faces of the selection and of the scene</td><td>Off by default. The face total for the whole scene requires counting the faces of every object – on a large scene the first count takes seconds and freezes Max. Turning it on shows a warning.</td></tr>
+      <tr><td class="k">Delete a layer together with its sublayers</td><td>Ctrl+Z undoes all of it</td><td>Measured end to end: one undo brings back the layers, the sublayers, the objects and the assignments. The old warning “do not rely on Ctrl+Z” was a measurement error and is gone.</td></tr>
+      <tr><td class="k">Batch rename</td><td>Regular expressions</td><td>These were there already: the “find” field with “regular expression” ticked, and capture groups in “replace” ($1).</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Undo and redo (v105)</h3>
+  <p>Every panel operation that changes the scene is one entry in the 3ds Max undo history: rename (F2, batch, template), hide, freeze, renderability, display properties, colour, material, an object's layer, hierarchy, hiding and freezing a layer, a new layer, renaming a layer, nesting layers, selection sets, merging duplicates, scene rules, Scene Doctor, viewport painting. Measured by a probe on each of these operations: operation → <em>max undo</em> → the scene state returns to the earlier one (30 out of 30), and <em>max redo</em> brings the change back.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
+    <tbody>
+      <tr><td class="k">panel, focus in the list</td><td>Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z</td><td>Max does not receive these keys from a docked window, so the panel intercepts them itself and runs <em>max undo</em> / <em>max redo</em>. In the filter field and in the name editor Ctrl+Z undoes typing, as everywhere else.</td></tr>
+      <tr><td class="k">Menu › palette</td><td>Undo the last operation, Redo</td><td>The same commands from the palette (Ctrl+P) and from the Menu button.</td></tr>
+      <tr><td class="k">Ctrl+Z in the viewport</td><td>the list refreshes by itself</td><td>After an undo or redo (from the viewport as well) the panel synchronises its snapshot with the scene.</td></tr>
+      <tr><td class="k">outside the history</td><td>isolation, viewport filter</td><td>These are modes, not edits: you leave them with a button, not with Ctrl+Z (exactly like the native isolation).</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Production tools (v095–v104)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Reports › Textures</td><td>Relink the missing ones…</td><td>You point at a folder (subfolders included); every map whose file is missing from disk gets the first file with the same name. BitmapTexture, VRayHDRI, CoronaBitmap, Arnold and any map with a <code>filename</code>. One undo block; a summary of what is still missing.</td></tr>
+      <tr><td class="k">Scene health</td><td>Fix</td><td>Unambiguous fixes with one click: zero or negative scale → 1,1,1; far from the origin → 0,0,0; no material → <em>SceneForge_Domyslny</em>; duplicate names → a number; hidden and frozen → revealed; empty layers → deleted; meshes with no faces → deleted. A confirmation with a count, one undo block.</td></tr>
+      <tr><td class="k">row menu</td><td>Name from a template…</td><td><code>{layer}_{class}_{##}</code>, <code>{mat}</code>, <code>{name}</code>; a preview of old → new before it is applied.</td></tr>
+      <tr><td class="k">Menu › Layers</td><td>Export layers to files…</td><td>Every layer that has objects into its own <code>.max</code> (saveNodes) or <code>.fbx</code> (the current FBX settings), named after the layer.</td></tr>
+      <tr><td class="k">row menu › Material</td><td>Replace this material across the whole scene with…</td><td>The material of the selected object is replaced by one chosen from the scene, on every object that uses it; the list shows usage counts.</td></tr>
+      <tr><td class="k">row menu</td><td>Select objects similar to this one</td><td>The same class, faces and size ±20%, the same material — the query lands in the filter field (so you can adjust it) and the result is selected.</td></tr>
+      <tr><td class="k">right click on a layer</td><td>Face budget for the layer…</td><td>The layer list shows <em>faces / budget</em> and turns red once it is exceeded. 0 removes the budget.</td></tr>
+      <tr><td class="k">row menu</td><td>Pin (the pin above the list)</td><td>A bar of pinned objects above the list, independent of the filter; a click selects and scrolls to them, a right click unpins.</td></tr>
+      <tr><td class="k">Preferences</td><td>Automatic rules</td><td>Opt-in: after a file is opened and after an import the panel waits 1.5 s, rebuilds the list and runs every scene rule.</td></tr>
+      <tr><td class="k">side bar</td><td>X-ray the rest</td><td>The selection stays solid, everything else becomes See-Through; a second click removes it from exactly the objects it was given to.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Context menu</h3>
+  <p>Right click on a row. The entries the native explorer does not have:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>submenu</th><th>entry</th><th>what it does</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Material</td><td>Open the material in the editor</td><td>In Slate mode it creates or finds the material node in the active view, selects it and puts it into the parameter editor; in classic mode it puts the material into the active slot and opens the editor.</td></tr>
+      <tr><td class="k">Material</td><td>Assign a material from a slot</td><td>A submenu of the 24 classic editor slots, read at the moment it is opened. It assigns to everything selected.</td></tr>
+      <tr><td class="k">Material</td><td>Assign the material from the Slate editor</td><td>The material Slate holds in its parameter editor goes onto the selection.</td></tr>
+      <tr><td class="k">Material</td><td>Copy from the first selected object</td><td>The material of the topmost selected row onto the others — the same instance, not a copy.</td></tr>
+      <tr><td class="k">Material</td><td>Remove the material</td><td>It takes the material off; the material itself stays in the scene if something else uses it.</td></tr>
+      <tr><td class="k">Layer</td><td>New empty layer…</td><td>It creates an empty layer and makes it current (like <em>Create New Layer</em> in Max). The plus button on the side bar does the same; the layer menu additionally has <em>New layer UNDER…</em>, which nests it straight away.</td></tr>
+      <tr><td class="k">Selection</td><td>Add to a set / Remove from a set</td><td>It adds the selection to an existing Max selection set, or takes it out. The list of sets is read when the menu opens — a set created a moment ago in the Max toolbar is already there. A set that has become empty is deleted.</td></tr>
+    </tbody>
+  </table></div>
+  <p>After every operation that changes how the scene looks (hide, freeze, <em>As a box</em>, <em>See-Through</em>, layers, isolation) the core <strong>redraws the viewport immediately</strong> — previously the change only showed up once you moved the view.</p>
+  <p>Each of these operations goes into a single undo block — <code>Ctrl+Z</code> undoes all of it. After a material change only the <strong>rows that were touched</strong>are refreshed, so the filter and the lens stay where they were.</p>
+</section>
+
+<section id="filtr">
+  <h2><span class="n">03</span>Filter language</h2>
+  <p>The filter field accepts a plain substring, but it also understands a syntax that replaces the <em>Advanced Filter</em>window. Conditions are joined with a space (a conjunction), and each of them can be negated with a minus: <code>-hidden:1</code>. Parentheses with a vertical bar mean “or”: <code>(layer:A | layer:B)</code>.</p>
+  <pre>type:VRayLight layer:02_* poly:&gt;100k -hidden:1</pre>
+
+  <div class="note pass"><span class="h">The field suggests as you type</span><p>You do not have to know the tables below by heart. Start typing and you will see the keys; <strong>after the colon — the values from this scene</strong>, with object counts, so you can see straight away how many objects you will get. A list of classes that are not in the scene would be noise, so we do not show it.</p><p>Only the <strong>term under the cursor</strong>is completed, so the rest of the query stays untouched. A value containing a space is quoted automatically. When there are more matches than the list can hold, the last entry says how many are left — a missing entry never pretends to be a missing layer.</p></div>
+
+  <h3>Prefixes</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>syntax</th><th>means</th></tr></thead>
+    <tbody>
+      <tr><td class="k">type: class</td><td>the object class, not localised — <code>Box</code>, <code>Editable_Poly</code>. Also <code>klasa:</code></td></tr>
+      <tr><td class="k">layer: name</td><td>the layer; an asterisk works as a wildcard. Also <code>warstwa:</code></td></tr>
+      <tr><td class="k">mat: name</td><td>the material. Also <code>material:</code></td></tr>
+      <tr><td class="k">poly:&gt;100k</td><td>the face count; operators <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>. Also <code>sciany:</code></td></tr>
+      <tr><td class="k">depth:&gt;2</td><td>the depth in the hierarchy. Also <code>glebokosc:</code></td></tr>
+      <tr><td class="k">children:&gt;0</td><td>the number of children. Also <code>dzieci:</code></td></tr>
+      <tr><td class="k">instances:&gt;1</td><td>the number of objects sharing the mesh. Also <code>instancje:</code></td></tr>
+      <tr><td class="k">selset: name</td><td>a named Max selection set. Also <code>zestaw:</code></td></tr>
+      <tr><td class="k">~word</td><td>a <strong>fuzzy</strong> search in the name: one typo, a missing letter or one letter too many still matches (<code>~teapot</code> finds <em>Teapto01</em>). Words shorter than 4 characters are not fuzzed.</td></tr>
+      <tr><td class="k">changed:&lt;10m</td><td>objects changed within a time window, according to the event listener: <code>&lt;10m</code>, <code>&gt;2h</code>, <code>&lt;45s</code>, <code>&gt;1d</code>. The chip <em>Last 10 min</em> does the same; <code>is:recent</code> = 10 minutes.</td></tr>
+      <tr><td class="k">is:changed</td><td>added or changed since the remembered baseline (Reports → Snapshot comparison).</td></tr>
+      <tr><td class="k">size:&gt;1000</td><td>the largest bounding box dimension <strong>in world space</strong> (with the node scale), in scene units; geometry only — lights and cameras drop out of every comparison. The first use computes the bounding boxes of all objects (the same cost as <code>poly:</code>), after that it comes from memory. Also <code>rozmiar:</code></td></tr>
+      <tr><td class="k">cat: category</td><td>the category by the SuperClassID of the base object: <code>Geometry</code>, <code>Shape</code>, <code>Light</code>, <code>Camera</code>, <code>Helper</code>, <code>SpaceWarp</code>, <code>System</code> — the same thing the native explorer filters by. <code>cat:Light</code> finds the lights of every renderer without knowing the class names. A typo gives an error with the list of categories, not an empty list. Also <code>kategoria:</code></td></tr>
+      <tr><td class="k">group: name</td><td>the group. Also <code>grupa:</code></td></tr>
+      <tr><td class="k">hidden:1</td><td>hidden. Also <code>ukryty:</code></td></tr>
+      <tr><td class="k">frozen:1</td><td>frozen. Also <code>zamrozony:</code></td></tr>
+      <tr><td class="k">is: trait</td><td>a scene health chip — see below. Also <code>jest:</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Chips <code>is:</code></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>chip</th><th>finds</th></tr></thead>
+    <tbody>
+      <tr><td class="k">is:zeroscale</td><td>objects with zero scale — invisible in the render, yet still in the scene</td></tr>
+      <tr><td class="k">is:nonuniform</td><td>non-uniform scale, a common cause of trouble on export</td></tr>
+      <tr><td class="k">is:faraway</td><td>objects far away from the rest of the scene; usually a mistake while pasting</td></tr>
+      <tr><td class="k">is:missingmat</td><td>with no material. Also <code>is:bezmaterialu</code></td></tr>
+      <tr><td class="k">is:orphan</td><td>with no parent and no children. Also <code>is:sierota</code></td></tr>
+      <tr><td class="k">is:emptylayer</td><td>empty layers</td></tr>
+      <tr><td class="k">is:unresolvedxref</td><td>unresolved external references</td></tr>
+      <tr><td class="k">is:nolayer</td><td>with no layer. Also <code>is:bezwarstwy</code></td></tr>
+      <tr><td class="k">is:leaf</td><td>leaves of the hierarchy. Also <code>is:lisc</code></td></tr>
+      <tr><td class="k">is:root</td><td>roots. Also <code>is:korzen</code></td></tr>
+      <tr><td class="k">is:unique</td><td>a mesh used only once. Also <code>is:unikat</code></td></tr>
+      <tr><td class="k">is:instance</td><td>an object sharing a mesh. Also <code>is:instancja</code></td></tr>
+      <tr><td class="k">is:reference</td><td>a reference. Also <code>is:referencja</code></td></tr>
+      <tr><td class="k">is:selected</td><td>selected in the scene. Also <code>is:zaznaczony</code></td></tr>
+      <tr><td class="k">is:grouphead</td><td>a group head</td></tr>
+      <tr><td class="k">is:groupmember</td><td>an object inside a group</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Query history</h3>
+  <p>The <em>hist.</em> button next to the field drops down the recent queries (up to 20, newest on top); a click puts the query into the field. Only queries the core accepted without an error get there — an unclosed parenthesis typed halfway does not. The history is remembered between sessions. The command <em>Select by size…</em> in the palette asks for a condition (e.g. <code>&gt;1000</code>), writes <code>size:</code> into the filter and selects everything that is left.</p>
+
+  <h3>Category and state chips</h3>
+  <p>Below the filter field there is a row of buttons: <em>Geometry, Shapes, Lights, Cameras, Helpers, Space warps, Bones</em> and <em>Hidden, Frozen, Selected</em>. Category chips combine with “or” (an object has one category), state chips with “and”. They are <strong>prepended</strong> to the text in the field, so <em>Lights</em> + <em>Hidden</em> + a typed <code>layer:02_*</code> means: hidden lights from those layers. The category chips show the number of objects in the scene. The <code>x</code> button clears every chip and leaves the text. The bar can be switched off in the preferences or from the palette.</p>
+  <div class="note pass"><span class="h">Measured</span><p>Filtering by class and layer compares indices, not text: <strong>0.05–0.08&nbsp;ms</strong> on a scene of 50&nbsp;026 objects. The worst case — a text pattern over the names — <strong>4.35&nbsp;ms</strong>, against a frame budget of 16&nbsp;ms.</p></div>
+</section>
+
+<section id="kolumny">
+  <h2><span class="n">04</span>Columns</h2>
+  <p>Columns are chosen and reordered in <em>Columns…</em> on the panel bar. The choice is stored in the preferences.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>column</th><th>what it shows</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Name</td><td>The only one that cannot be switched off — it holds the hierarchy indent, the class icon and the expand triangle.</td></tr>
+      <tr><td class="k">Class</td><td>The class name, not localised.</td></tr>
+      <tr><td class="k">Layer</td><td>The layer the object belongs to.</td></tr>
+      <tr><td class="k">State</td><td>An eye and a snowflake. <strong>Clickable</strong> — a click toggles that one object, regardless of the selection.</td></tr>
+      <tr><td class="k">Colour</td><td>The wireframe colour as a swatch and a hexadecimal value.</td></tr>
+      <tr><td class="k">Material</td><td>The material name. Empty = no material.</td></tr>
+      <tr><td class="k">Faces</td><td>The face count, computed <strong>lazily</strong>. Three dots mean “not counted yet”, never zero.</td></tr>
+      <tr><td class="k">Instances</td><td><code>×12</code> — twelve instances. <code>R3</code> — three objects on a shared base object.</td></tr>
+      <tr><td class="k">Mod.</td><td>The number of modifiers in the whole chain. An empty field = zero, three dots = not counted yet.</td></tr>
+      <tr><td class="k">Depth</td><td>How deep in the hierarchy the object sits.</td></tr>
+      <tr><td class="k">Children</td><td>The number of <strong>direct</strong> children of the node. Sortable.</td></tr>
+      <tr><td class="k">Verts</td><td>The vertex count from the top of the stack, noted while counting faces — it costs no separate evaluation. Three dots = not counted yet, a dash = not geometry.</td></tr>
+      <tr><td class="k">Size</td><td>The largest bounding box dimension in world space, in scene units; the same one used by <code>size:</code>. Computed lazily for the visible rows.</td></tr>
+      <tr><td class="k">Flags</td><td>State letters: <code>H</code> hidden, <code>F</code> frozen, <code>S</code> selected, <code>G</code> group head, <code>g</code> group member. The same as the icons in the State column, but as text — it copies into CSV.</td></tr>
+      <tr><td class="k">Path</td><td>The ancestors from the root, separated by slashes. Useful in flat mode, where the hierarchy indent disappears.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The Children, Verts, Size and Path columns travel through a separate core channel and are fetched <strong>only when one of them is switched on</strong> — a column nobody turned on costs nothing.</p>
+  <div class="note"><span class="h">About the face count</span><p><code>getPolygonCount</code> reads <strong>the top of the modifier stack</strong>, not the base mesh. Weighted Normals can turn 102&nbsp;152 vertices into 400&nbsp;824 — the Faces column then shows the effect of the stack, and the Mod. column its cause.</p></div>
+</section>
+
+<section id="soczewki">
+  <h2><span class="n">05</span>Lenses</h2>
+  <p>Instead of two separate windows (Hierarchy and Layer) there is one view and a grouping switch.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>lens</th><th>arranges the scene</th></tr></thead>
+    <tbody>
+      <tr><td class="k">no grouping</td><td>a plain parent–child hierarchy</td></tr>
+      <tr><td class="k">by layer</td><td>the equivalent of the Layer Explorer</td></tr>
+      <tr><td class="k">by class</td><td>a bucket per object class</td></tr>
+      <tr><td class="k">by material</td><td>a bucket per material</td></tr>
+      <tr><td class="k">by material (tree)</td><td>Multi/Sub-Object expanded into its submaterials</td></tr>
+      <tr><td class="k">by instance</td><td>one row per mesh, the objects inside it</td></tr>
+      <tr><td class="k">by group</td><td>a bucket per nearest group head (nested groups count the nearest one), everything else in <em>(outside a group)</em></td></tr>
+      <tr><td class="k">by face count</td><td>buckets by order of magnitude: below 1 000, 1 000–9 999, … The first use counts the faces of every object (the same cost as <code>poly:</code>), after that it comes from memory</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><span class="h">Viewport colouring</span><p>From the palette: <em>Viewport: colour objects by layer / class / material / face count</em>. The wireframe colour of every object is replaced (faces: a green → red gradient by order of magnitude — a heat map of the scene's weight). <strong>This is a change to the scene</strong>: a violet bar above the list is there to remind you, and <em>Restore wireframe colours</em> brings back the originals (also when the panel is closed, and through Ctrl+Z).</p></div>
+  <div class="note"><span class="h">Scene rules</span><p><em>Scene rules…</em> from the palette: a filter query + an action (hide, freeze, select, as a box, See-Through, renderability, move to a layer). A rule acts on <strong>the whole scene</strong>, including objects the filter is not showing. <em>Test</em> says how many objects match before you change anything; <em>Run all</em> runs the list one by one. The rules live in a file next to the preferences.</p></div>
+  <div class="note"><span class="h">Nesting layers</span><p>In the layer list <strong>drag a layer onto another layer</strong>to nest it underneath; drop it on an empty part of the list to pull it back to the root. Max itself refuses a cycle (a parent under its own child) — the status bar then says how many layers were rejected. The operation can be undone.</p></div>
+  <div class="note"><span class="h">Dragging a material</span><p>In the <em>by material</em> lens a bucket header can be <strong>dragged onto an object row</strong>. Dropping it on a row that belongs to the selection assigns the material to the whole selection; on a row outside it — only to that row. The <em>(no material)</em> header dropped onto an object takes its material off. The identity of a material is the object in the bucket, not the name — two materials can share a name. The operation can be undone.</p></div>
+</section>
+
+<section id="skroty">
+  <h2><span class="n">06</span>Shortcuts</h2>
+  <p>They work while the panel has focus. Max's own shortcuts are not intercepted — <strong>measured</strong>: control outside the panel 4/4, focus in the list 4/4, <code>Ctrl+Z</code> 3/3, and in the filter field the shortcuts are correctly disabled so that the letter reaches the field.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>key</th><th>does</th></tr></thead>
+    <tbody>
+      <tr><td class="k">F2</td><td>rename in place</td></tr>
+      <tr><td class="k">Ctrl+F2</td><td>batch rename, with a preview</td></tr>
+      <tr><td class="k">Ctrl+P</td><td>the command palette — objects, actions and layers at once</td></tr>
+      <tr><td class="k">Ctrl+A</td><td>select everything visible</td></tr>
+      <tr><td class="k">Ctrl+I</td><td>invert the selection</td></tr>
+      <tr><td class="k">Ctrl+D</td><td>clear the selection</td></tr>
+      <tr><td class="k">Alt+Enter</td><td>object properties</td></tr>
+      <tr><td class="k">Ctrl+Alt+Q</td><td>isolation — in and out</td></tr>
+      <tr><td class="k">Ctrl+Alt+F</td><td>the filter drives visibility in the viewport</td></tr>
+      <tr><td class="k">Ctrl+Alt+S</td><td>“selected only” mode</td></tr>
+      <tr><td class="k">Ctrl+Alt+K</td><td>choice of visible columns</td></tr>
+      <tr><td class="k">Ctrl+Shift+R</td><td>scene reports</td></tr>
+      <tr><td class="k">Ctrl+Shift+L</td><td>layer states</td></tr>
+      <tr><td class="k">Ctrl+1…9</td><td>saved views</td></tr>
+    </tbody>
+  </table></div>
+  <p>Your own assignments: <em>Preferences → Shortcuts</em>. They travel the same path as the built-in ones, so there are not two classes of shortcut behaving differently.</p>
+</section>
+
+<section id="raporty">
+  <h2><span class="n">07</span>Scene reports</h2>
+  <p><code>Ctrl+Shift+R</code>. Four tabs, none of which computes itself when the window opens — scanning a large scene takes time, and a window that freezes Max on opening gets opened once.</p>
+
+  <h3>Geometry duplicates</h3>
+  <p><strong>Merge ALL</strong> walks every group in the table, checks the vertices and merges them into instances — 340 identical chairs become one mesh and 340 instances. A group with different geometry is skipped and named in the summary. Each group is its own undo block.</p>
+  <p>Groups of objects with an identical signature, sorted descending. Merging into instances <strong>first compares the vertex positions</strong> and refuses when they differ — two meshes with the same face count and the same dimensions need not be the same mesh.</p>
+  <div class="stats">
+    <div class="stat"><div class="v">2849 ms</div><div class="l">scan of a whole 50 026 object scene</div></div>
+    <div class="stat"><div class="v">1.47 ms</div><div class="l">group members from memory</div></div>
+  </div>
+
+  <h3>Scene weight</h3>
+  <p>Faces and objects per layer and per class. The face count is lazy in the snapshot, so the report computes it first — and <strong>says how many remain unknown</strong>. Counting them as zero would give totals smaller than the truth and looking perfectly reasonable.</p>
+
+  <h3>Textures</h3>
+  <p>Every bitmap map: what weighs how much, and what is missing. <strong>One row per file, not per occurrence</strong> — the same map used a hundred times does not take up a hundred places on disk. The size is the file size, not the memory footprint: that depends on compression and mipmaps and cannot be derived from the resolution. A file that is not there has the size <code>?</code>, not zero.</p>
+
+  <h3>Snapshot comparison</h3>
+  <p><em>Remember the baseline</em> stores the state of the whole scene by handle (name, layer, material, class, parent, faces). <em>Compare</em> shows what was added, removed and changed — one difference per row, with CSV export. <em>Show the changed ones in the list</em> writes <code>is:changed</code> into the filter. An audit of “what have I touched since this morning” in a single table.</p>
+  <h3>Timeline</h3>
+  <p>The most recent scene events (added, deleted, structure, name, state) with a time and a name — a ring of 5 000 events. The <em>in the list</em> writes <code>changed:&lt;N m</code> into the filter.</p>
+  <h3>Scene card</h3>
+  <p>A single HTML file with the numbers about the scene: objects, layers, faces, the heaviest layers and classes, scene health, textures, duplicates. To send to somebody who does not have Max. <em>Compute</em> gathers the reports (the duplicate scan takes about 2 s on 50 000 objects), <em>Save HTML…</em> opens the file in a browser.</p>
+  <h3>Naming</h3>
+  <p>Rules in the form <code>name|regular expression</code>, one per line. An object breaks the convention when it matches <strong>none of them</strong>. A bad pattern shows <code>ERROR</code> instead of pretending that nothing matches — a typo in a pattern would report the whole scene as a deviation, and that would look like a genuine result.</p>
+  <p>The names found can be fixed in the same window. The fix works by <strong>handles</strong>, not by view rows: a filtered-out object has no row number, so going through the view would fix 40 names out of 300 and report “40 changed”.</p>
+  <div class="note pass"><span class="h">Undo</span><p>The whole fix is one <code>Ctrl+Z</code>. On top of that, a CSV file with the old names is written next to the scene before the change — the undo history does not survive saving and closing the scene, but that file does.</p></div>
+</section>
+
+<section id="turbo">
+  <h2><span class="n">08</span>Explorer Turbo</h2>
+  <p>A separate, free tool for the <strong>native</strong> Max Scene Explorer. It does not require SceneForge and does not carry its code.</p>
+  <ul>
+    <li><strong>Suspending the refresh</strong> with a single switch, with the state visible on the bar.</li>
+    <li><strong>Four columns</strong>the native explorer does not have: modifiers, children, instances and a short note on node health.</li>
+  </ul>
+  <div class="note warn"><span class="h">What is not there, and why</span><p>There is no face-count column. Reading it from MAXScript costs <strong>311 µs per object</strong>, that is 15.6&nbsp;ms per 50 visible rows — nearly a whole frame. And that on light primitives, so for real geometry it is a lower bound. A tool meant to cure a sluggish explorer cannot be what makes it sluggish.</p></div>
+  <p>What does go in costs, all together, <strong>0.856 ms per 50 visible rows</strong>. One thing saves us: Max only asks about the rows you can see — measured at about 50 on opening and zero growth after two seconds of idling.</p>
+</section>
+
+<section id="wydajnosc">
+  <h2><span class="n">09</span>Performance</h2>
+  <p>The same operations, the same scene, the same Max session. The minimum of a series, not the average.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>operation</th><th class="num">native explorer</th><th class="num">SceneForge</th><th class="num">ratio</th></tr></thead>
+    <tbody>
+      <tr><td>opening and filling</td><td class="num">92 992 ms</td><td class="num">101 ms</td><td class="num">920×</td></tr>
+      <tr><td>expanding the whole tree</td><td class="num">3 383 298 ms</td><td class="num">1 ms</td><td class="num">&gt;10⁶×</td></tr>
+      <tr><td>cost of an idle window</td><td class="num">+0 %</td><td class="num">+0,9 %</td><td class="num">a draw</td></tr>
+      <tr><td>update after adding 1000 objects</td><td class="num">—</td><td class="num">4.4–6.3 ms</td><td class="num">see below</td></tr>
+    </tbody>
+  </table></div>
+  <p>Three things in this table that are easy to read wrong:</p>
+  <ul>
+    <li><strong>An idle native explorer costs nothing.</strong> The common form of the complaint — “an open explorer slows Max down” — is untrue as stated. The cost sits in filling and rebuilding the list.</li>
+    <li><strong>The last row has no “native” column, and that is the honest answer.</strong> Creating 1000 objects costs Max itself 8.7–12.9&nbsp;s, and the spread between identical runs reaches 47&nbsp;%. An overhead of a few milliseconds cannot be seen inside that — on either side. So we quote what was measured directly: our own snapshot update.</li>
+    <li><strong>Our “1 ms” is real work.</strong> The view grows from 33&nbsp;812 to 50&nbsp;026 rows and hands back data from the start, the middle and the end of the list. It is cheap because the view is an array of indices, and only the rows you can see are drawn.</li>
+  </ul>
+  <h3>Busy signal</h3>
+  <p>Operations on a large selection can take seconds. From 500 objects up, the panel says in the status bar what it is doing and switches the cursor to the busy one. The threshold was not picked by eye: at 500 objects the slowest of those operations takes 67 ms, which is imperceptible, while at 1000 it is already 214 ms. The signal itself costs 3.4 ms and appears only where you are waiting anyway.</p>
+  <div class="note"><span class="h">A correction</span><p>An earlier version of this page quoted “+111&nbsp;ms for us against +6&nbsp;ms for the native one” here, and the sentence “this is where we are slower”. Checking that charge demolished <strong>the measurement itself</strong>, not the code: both numbers were samples from noise 37 times larger than they were. The method “measure the whole operation and subtract” had no chance of seeing an effect of a few milliseconds.</p></div>
+</section>
+
+<section id="slad">
+  <h2><span class="n">10</span>Footprint in the scene</h2>
+  <p>A <code>.max</code> file is a compound document with eleven streams. After a full session of use — refreshing, filters, lenses, face counting, every report, a duplicate scan — a stream by stream comparison:</p>
+  <div class="tbl"><table>
+    <thead><tr><th>stream</th><th>without the plugin</th><th>after a session</th></tr></thead>
+    <tbody>
+      <tr><td><code>Scene</code> — the scene data, 287 078 B</td><td class="k">daf529c31a270f0c</td><td class="k">daf529c31a270f0c</td></tr>
+      <tr><td><code>Config</code></td><td class="k">68d949cbd1c3fc17</td><td class="k">68d949cbd1c3fc17</td></tr>
+      <tr><td>the remaining eight</td><td colspan="2">identical</td></tr>
+      <tr><td><code>SummaryInformation</code> — the viewport thumbnail</td><td colspan="2">differs between two saves as well <strong>without</strong> the plugin</td></tr>
+    </tbody>
+  </table></div>
+  <p>Not one word of ours — <code>SceneForge</code>, <code>SF_CORE</code>, the column names — appears in the saved file.</p>
+  <div class="note"><span class="h">One exception, a deliberate one</span><p>You save layer states yourself, with the command <code>Ctrl+Shift+L</code>. They then go into the <code>Config</code>stream, because a layer state describes <em>this</em> scene and means nothing in another one. It is the only thing the plugin puts into the file — and only when you ask for it.</p></div>
+</section>
+
+<section id="klopoty">
+  <h2><span class="n">11</span>Troubleshooting</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>symptom</th><th>what to do</th></tr></thead>
+    <tbody>
+      <tr><td>I want to send a log to support</td><td>The panel writes its log to <code>dziennik_panelu.txt</code> in the configuration folder (next to <code>preferencje.json</code>); the scene change listener writes to <code>SceneForge_events_log.txt</code> in the Max user scripts folder.</td></tr>
+      <tr><td>The list is empty although the scene is not</td><td>The core and the panel have drifted apart in version. Reload with the command from Customize; if that does not help, install the package again — the installer removes the old versions.</td></tr>
+      <tr><td>The Faces column shows three dots</td><td>That is how it should be. The face count is computed for the rows you can see, with a budget of 2 ms per pass. Scroll, or wait a moment.</td></tr>
+      <tr><td>There is no SceneForge entry in the menu</td><td>It appears after 3ds Max is restarted. The commands in Customize work right away.</td></tr>
+      <tr><td>The naming report flags the whole scene</td><td>The default rules (<code>SM_</code>, <code>HLP_</code>, <code>LGT_</code>, <code>CAM_</code>) are examples meant to be replaced. Type your own and save.</td></tr>
+      <tr><td>Merging duplicates refuses</td><td>The meshes have the same face count and the same dimensions, but <strong>different vertex positions</strong>. The refusal is the correct result here.</td></tr>
+      <tr><td>I cannot see what the object got parented to</td><td>The parent is filtered out. Clear the filter, or switch on auto-expand to the selection in the preferences.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</main>
+
+<footer>SceneForge Outliner &middot; panel v135 &middot; documentation v014 (EN) &middot; numbers measured on 3ds Max 2027, scene SF-50k (50 026 objects, 201 layers)</footer>
+</div>

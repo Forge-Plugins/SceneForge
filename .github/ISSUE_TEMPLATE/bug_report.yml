@@ -1,0 +1,93 @@
+name: Bug report
+description: Something does not work as the documentation describes.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time. Before you start: in 3ds Max choose
+        **SceneForge > Report a bug...** - it puts your 3ds Max and SceneForge
+        details on the clipboard. Paste them into the "Details" field below.
+        You can also send the report by e-mail to forgeplugins@gmail.com.
+  - type: input
+    id: sf_version
+    attributes:
+      label: SceneForge version
+      description: SceneForge > About SceneForge
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: max_version
+    attributes:
+      label: 3ds Max version
+      placeholder: "2027 (29.0.0.3590)"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What did you do, what did you expect, and what happened instead?
+      placeholder: |
+        1. Imported an FBX with 2 000 objects
+        2. Deleted 500 of them from the viewport
+        3. Expected the list to update, but ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where
+      options:
+        - The object list (refresh, scrolling, selection)
+        - Filter, chips or lenses
+        - Hide / freeze / display icons
+        - Layers
+        - Row menu or palette commands
+        - Scene reports
+        - Footer counters
+        - Undo / redo
+        - Installation or update
+        - Documentation
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: scene_size
+    attributes:
+      label: Approximate number of objects in the scene
+      placeholder: "9 000"
+  - type: dropdown
+    id: repeat
+    attributes:
+      label: Does it happen every time?
+      options:
+        - Every time
+        - Sometimes
+        - Only once
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details from "Report a bug..."
+      description: Paste (Ctrl+V) what SceneForge > Report a bug... copied to the clipboard.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or anything else
+      description: Drag images here. A screenshot of the panel and of the MAXScript Listener helps a lot.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched the existing issues and this one is not there yet.
+          required: true
+        - label: This report contains no licence key or purchase details.
+          required: true

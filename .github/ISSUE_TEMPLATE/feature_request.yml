@@ -1,0 +1,41 @@
+name: Feature request
+description: An idea for a new filter, column, report, command or improvement.
+title: "[Idea] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What would you like to do?
+      description: Describe the task, not only the solution - "I hunt for objects without a material before every render" says more than "add a button".
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: How do you do it today?
+  - type: textarea
+    id: proposal
+    attributes:
+      label: How could SceneForge help?
+      description: A filter, a column, a report, a command, a shortcut... any idea is welcome.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Object list and selection
+        - Filter language, chips, lenses
+        - Columns and counters
+        - Layers
+        - Scene reports and rules
+        - Commands, palette, shortcuts
+        - Documentation
+        - Other
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched the existing issues and this idea is not there yet.
+          required: true

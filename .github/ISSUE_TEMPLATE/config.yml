@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation (User Guide)
+    url: https://github.com/looki666/SceneForge#documentation
+    about: Most questions are answered in the User Guide - "Troubleshooting" is chapter 11.
+  - name: Private support by e-mail (forgeplugins@gmail.com)
+    url: https://github.com/looki666/SceneForge#reporting-a-bug-or-asking-for-a-feature
+    about: Bug reports and ideas are welcome by e-mail too. For licence or purchase matters, or anything you would rather not post publicly.
+  - name: More plugins by the author (forgeplugins.tech)
+    url: https://forgeplugins.tech
+    about: Other plugins for 3ds Max and Blender.
