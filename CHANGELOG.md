@@ -44,6 +44,9 @@ v133. The changes made after it are listed below.
 
 ### Fixed
 
+- A newly created object (Create panel, quad menu, marking menus or any tool that selects what
+  it creates) is now scrolled into view on a long list; before, the list kept its old place and
+  the new object could stay off-screen. New objects that are not selected leave the list where it is.
 - On heavy scenes the list sometimes stopped following added and deleted objects until
   Refresh was clicked - the scene listener was switched off after an import and is now also
   watched and restored automatically.
