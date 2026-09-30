@@ -4,6 +4,8 @@
 Filter, sort, hide, freeze and select across tens of thousands of objects - the list
 keeps up while you work.
 
+![The panel: hierarchy, state icons, layer list and the selection / scene counters](images/01_hierarchy.png)
+
 SceneForge is a dockable panel that replaces day-to-day work in the Scene Explorer.
 Its core is compiled .NET code that reads the whole scene in one pass (about 0.1 s
 for 50 000 objects), so typing a filter, switching a lens or deleting a thousand
@@ -32,6 +34,11 @@ The plugin itself is sold separately; there is no source code here.
 - Works on the whole selection: click an eye or a freeze icon on one selected row and every
   selected object follows; Ctrl+drag selects a range of rows
 - No internet connection, no telemetry
+
+| | |
+|---|---|
+| ![The by-layer lens](images/02_lens_by_layer.png) | ![A filter query with the by-material lens](images/03_filter_by_material.png) |
+| The **by layer** lens - the Layer Explorer inside the same list | `mat:Oak*` with the **by material** lens - the filter runs in 0.07 ms |
 
 ## Documentation
 
