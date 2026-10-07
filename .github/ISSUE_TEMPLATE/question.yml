@@ -5,7 +5,7 @@ labels: ["question"]
 body:
   - type: markdown
     attributes:
-      value: The [User Guide](https://github.com/looki666/SceneForge/blob/main/docs/SceneForge_User_Guide.pdf) answers most questions - "Troubleshooting" is chapter 11.
+      value: The [User Guide](https://github.com/Forge-Plugins/SceneForge/blob/main/docs/SceneForge_User_Guide.pdf) answers most questions - "Troubleshooting" is chapter 11.
   - type: textarea
     id: question
     attributes:

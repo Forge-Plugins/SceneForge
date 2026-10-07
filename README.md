@@ -64,7 +64,7 @@ the main menu appears after 3ds Max is restarted.
 
 Bugs and ideas can be reported **on GitHub or by e-mail** - both are read.
 
-**[Open an issue](https://github.com/looki666/SceneForge/issues/new/choose)** and pick a form:
+**[Open an issue](https://github.com/Forge-Plugins/SceneForge/issues/new/choose)** and pick a form:
 
 - **Bug report** - something does not work as described.
   In 3ds Max choose **SceneForge > Report a bug...** first: it copies your 3ds Max and
