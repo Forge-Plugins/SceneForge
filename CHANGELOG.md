@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0 beta - the panel comes back after a restart - 2026-10-18
+
+- If the SceneForge panel was open when you closed 3ds Max, it opens again at the next start, docked on the same side
+  with the same width (or floating where you left it). Close it before quitting and it stays closed.
+- Quick Start: searching by material (`mat:wood*`), by texture (`map:*.hdr`) and for problems (`is:missingmat`,
+  `is:instance`), plus a note about very heavy scenes.
+- The documentation is published as PDF only.
+
 ## 1.0 beta - links and roadmap - 2026-10-18
 
 - **About**, **Documentation**, **Report a bug...** and **Suggest a feature...** now open small windows with
