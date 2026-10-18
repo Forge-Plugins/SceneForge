@@ -52,6 +52,15 @@ The plugin itself is sold separately; there is no source code here.
 The Quick Start and Installation sheets are also available as HTML in the [docs](docs) folder.
 Release notes: [CHANGELOG.md](CHANGELOG.md).
 
+Inside 3ds Max, **SceneForge > Documentation** opens the installed guide and links to these PDFs;
+**SceneForge > About SceneForge** lists every link below.
+
+## Roadmap
+
+What is planned and in progress: **[SceneForge Features & Roadmap on Trello](https://trello.com/b/PBXJnwFp/sceneforge-features-roadmap)**
+(also **SceneForge > Roadmap (Trello)** in 3ds Max). The board shows direction, not release dates -
+comment on a card to say it matters to you, or suggest a new one.
+
 ## Requirements
 
 Autodesk 3ds Max 2027, Windows 10/11 64-bit. English user interface of 3ds Max.
@@ -74,6 +83,9 @@ Bugs and ideas can be reported **on GitHub or by e-mail** - both are read.
   into the form.
 - **Feature request** - an idea for a new filter, column, report or command.
 - **Question** - how do I...?
+
+Before suggesting a feature, check the [roadmap](https://trello.com/b/PBXJnwFp/sceneforge-features-roadmap) -
+it may already be planned.
 
 Prefer e-mail? Write to **forgeplugins@gmail.com** - the same address takes bug reports, feature
 requests and support questions. Please do not post licence or purchase details in a

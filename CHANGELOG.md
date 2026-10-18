@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0 beta - links and roadmap - 2026-10-18
+
+- **About**, **Documentation**, **Report a bug...** and **Suggest a feature...** now open small windows with
+  clickable links (GitHub, e-mail, roadmap, website) instead of addresses you had to retype.
+- **Documentation** opens the installed guide (offline) and links to the Quick Start, Installation and User Guide
+  PDFs online.
+- New command **Roadmap (Trello)** in the SceneForge menu, the panel's Menu > Help and the command palette - the public
+  [SceneForge roadmap](https://trello.com/b/PBXJnwFp/sceneforge-features-roadmap).
+- The documentation has a new chapter, *Links and support*.
+
 ## Documentation update - 2026-10-18
 
 - The [User Guide](docs/SceneForge_User_Guide.pdf) has been rewritten for the current version. It now starts
