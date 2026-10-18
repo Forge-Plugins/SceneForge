@@ -6,7 +6,8 @@
   with the same width (or floating where you left it). Close it before quitting and it stays closed.
 - Quick Start: searching by material (`mat:wood*`), by texture (`map:*.hdr`) and for problems (`is:missingmat`,
   `is:instance`), plus a note about very heavy scenes.
-- The documentation is published as PDF only.
+- The documentation is published as PDF only. The user guide installed with the plugin is a PDF too
+  (**SceneForge > Documentation > Open the user guide (PDF)**); updating removes the old HTML guide.
 
 ## 1.0 beta - links and roadmap - 2026-10-18
 
