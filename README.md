@@ -1,6 +1,6 @@
 # SceneForge Outliner
 
-**A scene outliner for Autodesk 3ds Max 2024-27 that does not freeze Max.**
+**A scene outliner for Autodesk 3ds Max 2027 that does not freeze Max.**
 Filter, sort, hide, freeze and select across tens of thousands of objects - the list
 keeps up while you work.
 
@@ -54,7 +54,7 @@ Release notes: [CHANGELOG.md](CHANGELOG.md).
 
 ## Requirements
 
-Autodesk 3ds Max 2024-27, Windows 10/11 64-bit. English user interface of 3ds Max.
+Autodesk 3ds Max 2027, Windows 10/11 64-bit. English user interface of 3ds Max.
 
 ## Installation
 
