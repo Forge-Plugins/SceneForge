@@ -9,6 +9,8 @@
 - New command **Roadmap (Trello)** in the SceneForge menu, the panel's Menu > Help and the command palette - the public
   [SceneForge roadmap](https://trello.com/b/PBXJnwFp/sceneforge-features-roadmap).
 - The documentation has a new chapter, *Links and support*.
+- New command **Discord community** - the [Discord channel](https://discord.gg/HsakZWQZAw) for questions, tips and
+  news; the help windows link to it too.
 
 ## Documentation update - 2026-10-18
 

@@ -87,6 +87,9 @@ Bugs and ideas can be reported **on GitHub or by e-mail** - both are read.
 Before suggesting a feature, check the [roadmap](https://trello.com/b/PBXJnwFp/sceneforge-features-roadmap) -
 it may already be planned.
 
+Quick questions, tips and news: the **[Discord channel](https://discord.gg/HsakZWQZAw)**
+(also **SceneForge > Discord community** in 3ds Max).
+
 Prefer e-mail? Write to **forgeplugins@gmail.com** - the same address takes bug reports, feature
 requests and support questions. Please do not post licence or purchase details in a
 public issue; send those by e-mail.
