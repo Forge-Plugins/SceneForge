@@ -1,11 +1,18 @@
 # Changelog
 
+## Documentation update - 2026-10-18
+
+- The [User Guide](docs/SceneForge_User_Guide.pdf) has been rewritten for the current version. It now starts
+  with a quick start and the installation steps, and covers every command of the SceneForge menu, the
+  command palette, the Performance menu and Light mode.
+- New short sheets: [Quick Start](docs/SceneForge_QuickStart.pdf) and
+  [Installation](docs/SceneForge_Installation.pdf) (also as HTML in the docs folder).
+- Removed outdated information: the language option, the Polish guide link and the Google Fonts download
+  (the guide works offline).
+
 ## 1.0.0 - 2026-09-30
 
 First public release for 3ds Max 2027.
-
-The [User Guide](docs/SceneForge_User_Guide.pdf) describes the features up to the panel build
-v133. The changes made after it are listed below.
 
 ### Added
 

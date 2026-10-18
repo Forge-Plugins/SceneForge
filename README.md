@@ -44,11 +44,13 @@ The plugin itself is sold separately; there is no source code here.
 
 | Document | What it covers |
 |---|---|
-| [User Guide (PDF)](docs/SceneForge_User_Guide.pdf) | installation, first run, filter language, columns, lenses, shortcuts, scene reports, performance, troubleshooting |
+| [Quick Start (PDF)](docs/SceneForge_QuickStart.pdf) | two pages: open the panel, find, select, hide and isolate objects in five minutes |
+| [Installation (PDF)](docs/SceneForge_Installation.pdf) | install, update and uninstall, where the files go, troubleshooting |
+| [User Guide (PDF)](docs/SceneForge_User_Guide.pdf) | the full guide: quick start, installation, the list, filter language, lenses, layers, isolation, command palette, scene reports, Scene Doctor, rules, batch rename, performance, shortcuts, preferences, reporting bugs |
 | [User Guide (HTML)](docs/SceneForge_User_Guide.html) | the same guide - download it and open it in a browser; it is also installed with the plugin (**SceneForge > Documentation**) |
 
-Release notes: [CHANGELOG.md](CHANGELOG.md) - the changes made after the guide was written
-are listed there.
+The Quick Start and Installation sheets are also available as HTML in the [docs](docs) folder.
+Release notes: [CHANGELOG.md](CHANGELOG.md).
 
 ## Requirements
 

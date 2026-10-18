@@ -1,476 +1,293 @@
-<meta http-equiv="content-language" content="en">
-<title>SceneForge Outliner — User Guide</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SceneForge Outliner - User Guide</title>
 <style>
-:root{
-  --ground:#F6F7F8; --surface:#FFFFFF; --surface-2:#EFF1F3;
-  --ink:#191D22; --ink-2:#3D454E; --muted:#626C78; --rule:#DDE1E6;
-  --accent:#9A5400; --accent-soft:#F2E6D8;
-  --pass:#1B6E52; --pass-soft:#E0EFE8;
-  --warn:#A3241D; --warn-soft:#F6E3E1;
-  --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
-  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
-  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+@page { size: A4; margin: 14mm 15mm 15mm 15mm; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; background: #ffffff; color: #1b2028;
+  font: 10.5pt/1.5 "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+.strona { max-width: 190mm; margin: 0 auto; padding: 8mm 6mm 10mm; }
+h1 { font-size: 22pt; line-height: 1.15; margin: 0 0 2mm; letter-spacing: -0.01em; }
+h2 { font-size: 15pt; margin: 8mm 0 2.5mm; padding-bottom: 1.2mm;
+  border-bottom: 1.5px solid #d5dbe4; break-after: avoid; }
+h3 { font-size: 11.5pt; margin: 5mm 0 1.5mm; break-after: avoid; }
+h4 { font-size: 10.5pt; margin: 3.5mm 0 1mm; break-after: avoid; }
+p { margin: 0 0 2.2mm; }
+ul, ol { margin: 0 0 2.5mm; padding-left: 6mm; }
+li { margin: 0.6mm 0; }
+a { color: #1a5fa0; text-decoration: none; }
+code, kbd, .mono { font-family: Consolas, "Cascadia Mono", "Courier New", monospace; font-size: 9.3pt; }
+code { background: #eef2f7; border-radius: 3px; padding: 0 1.2mm; }
+kbd { background: #f6f7f9; border: 1px solid #c4cad3; border-bottom-width: 2px;
+  border-radius: 3px; padding: 0 1.3mm; white-space: nowrap; }
+pre { background: #f3f5f8; border: 1px solid #dde2e9; border-radius: 4px; padding: 2.5mm 3mm;
+  font: 9pt/1.45 Consolas, "Courier New", monospace; white-space: pre-wrap; overflow-wrap: anywhere;
+  margin: 1.5mm 0 3mm; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; margin: 1.5mm 0 3.5mm; font-size: 9.6pt; }
+th, td { text-align: left; vertical-align: top; padding: 1.3mm 2mm; border-bottom: 1px solid #e1e5eb; }
+th { background: #f1f4f8; font-size: 8.8pt; text-transform: uppercase; letter-spacing: 0.04em; color: #4b5563; }
+tr { break-inside: avoid; }
+td:first-child { white-space: nowrap; }
+td.zawijaj, th.zawijaj { white-space: normal; }
+.uwaga, .wskazowka, .beta { border-left: 3px solid #d9963a; background: #fdf6ec; padding: 2mm 3mm;
+  margin: 2mm 0 3.5mm; border-radius: 0 4px 4px 0; break-inside: avoid; }
+.wskazowka { border-left-color: #2f86c9; background: #eef5fc; }
+.beta { border-left-color: #3a9a5b; background: #eef8f1; }
+.uwaga b:first-child, .wskazowka b:first-child, .beta b:first-child { margin-right: 1mm; }
+.podtytul { color: #4b5563; font-size: 11pt; margin-bottom: 4mm; }
+.meta { color: #6b7280; font-size: 9pt; }
+.spis { columns: 2; column-gap: 10mm; margin: 2mm 0 4mm; padding-left: 5mm; }
+.spis li { break-inside: avoid; }
+.kroki > li { margin: 1.6mm 0; }
+.czesc { break-before: page; }
+.stopka { margin-top: 8mm; padding-top: 2mm; border-top: 1px solid #e1e5eb; color: #6b7280; font-size: 8.8pt; }
+@media screen {
+  body { background: #f4f6f9; }
+  .strona { background: #ffffff; margin: 6mm auto; box-shadow: 0 1px 6px rgba(0,0,0,.08); border-radius: 6px; }
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --ground:#15181C; --surface:#1C2126; --surface-2:#22282E;
-    --ink:#E6EAEE; --ink-2:#C2CAD2; --muted:#96A1AE; --rule:#2C333A;
-    --accent:#E0912E; --accent-soft:#33281A;
-    --pass:#5CC49E; --pass-soft:#172A24;
-    --warn:#F0857D; --warn-soft:#2E1D1C;
-  }
+@media print {
+  .strona { padding: 0; max-width: none; }
+  a { color: #1b2028; }
 }
-:root[data-theme="dark"]{
-  --ground:#15181C; --surface:#1C2126; --surface-2:#22282E;
-  --ink:#E6EAEE; --ink-2:#C2CAD2; --muted:#96A1AE; --rule:#2C333A;
-  --accent:#E0912E; --accent-soft:#33281A;
-  --pass:#5CC49E; --pass-soft:#172A24;
-  --warn:#F0857D; --warn-soft:#2E1D1C;
-}
-*{box-sizing:border-box}
-body{
-  background:var(--ground); color:var(--ink);
-  font-family:var(--serif); font-size:17px; line-height:1.62;
-  margin:0; padding:0;
-}
-.wrap{max-width:1180px;margin:0 auto;padding:0 28px 96px;display:grid;grid-template-columns:210px minmax(0,1fr);gap:56px}
-@media (max-width:900px){.wrap{grid-template-columns:1fr;gap:0}nav.toc{position:static!important;border-right:0!important;padding-top:0!important}}
-
-/* ---- naglowek ---- */
-header{grid-column:1/-1;padding:64px 0 40px;border-bottom:1px solid var(--rule);margin-bottom:44px}
-.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
-h1{font-family:var(--sans);font-weight:600;font-size:clamp(34px,5vw,50px);line-height:1.06;letter-spacing:-.022em;margin:0;text-wrap:balance}
-.lede{font-size:19px;color:var(--ink-2);max-width:60ch;margin:18px 0 0}
-.meta{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:24px;display:flex;flex-wrap:wrap;gap:6px 22px}
-
-/* ---- spis ---- */
-nav.toc{position:sticky;top:24px;align-self:start;padding-top:4px;font-family:var(--sans);font-size:13.5px;line-height:1.5}
-nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
-nav.toc a{color:var(--muted);text-decoration:none;display:block;border-left:2px solid transparent;padding-left:11px}
-nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent);border-left-color:var(--accent)}
-nav.toc .num{font-family:var(--mono);font-size:11px;color:var(--rule);margin-right:7px}
-
-main{min-width:0}
-section{margin-bottom:58px;scroll-margin-top:20px}
-h2{font-family:var(--sans);font-weight:600;font-size:25px;letter-spacing:-.014em;margin:0 0 6px;text-wrap:balance}
-h2 .n{font-family:var(--mono);font-size:13px;color:var(--accent);margin-right:11px;font-weight:400}
-h3{font-family:var(--sans);font-weight:600;font-size:16.5px;margin:30px 0 8px;letter-spacing:-.005em}
-p{margin:0 0 14px;max-width:66ch}
-ul,ol.steps{max-width:66ch;padding-left:20px;margin:0 0 14px}
-li{margin-bottom:7px}
-code{font-family:var(--mono);font-size:.855em;background:var(--surface-2);padding:1.5px 5px;border-radius:3px;color:var(--ink)}
-strong{font-weight:600}
-a{color:var(--accent)}
-
-/* ---- tabele ---- */
-.tbl{overflow-x:auto;margin:16px 0 22px;border-top:1.5px solid var(--ink);border-bottom:1px solid var(--rule)}
-table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:14px;line-height:1.45}
-th{text-align:left;font-weight:600;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:9px 14px 9px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
-td{padding:9px 14px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
-tr:last-child td{border-bottom:0}
-td.k{font-family:var(--mono);font-size:12.5px;white-space:nowrap;color:var(--accent);font-weight:500}
-td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-
-/* ---- bloki ---- */
-.note{border-left:2.5px solid var(--accent);background:var(--accent-soft);padding:14px 18px;margin:20px 0;font-size:15.5px}
-.note.pass{border-left-color:var(--pass);background:var(--pass-soft)}
-.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
-.note p{margin:0 0 8px;max-width:62ch}
-.note p:last-child{margin:0}
-.note .h{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px}
-.note .h{color:var(--accent)} .note.pass .h{color:var(--pass)} .note.warn .h{color:var(--warn)}
-
-pre{font-family:var(--mono);font-size:13px;line-height:1.55;background:var(--surface-2);border:1px solid var(--rule);border-radius:4px;padding:13px 15px;overflow-x:auto;margin:14px 0}
-
-/* ---- liczby ---- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0 24px}
-.stat{background:var(--surface);padding:15px 17px}
-.stat .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:23px;font-weight:500;color:var(--accent);letter-spacing:-.02em}
-.stat .l{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:3px;line-height:1.35}
-footer{grid-column:1/-1;border-top:1px solid var(--rule);padding-top:22px;font-family:var(--mono);font-size:12px;color:var(--muted)}
 </style>
-
-<div class="wrap">
-<header>
-  <p class="eyebrow">User guide &middot; 3ds Max 2027</p>
-  <h1>SceneForge Outliner</h1>
-  <p class="lede">A scene browser that does not freeze Max. This guide describes the release for 3ds Max 2027 and gives numbers measured on a scene of 50&nbsp;026 objects.</p>
-  <div class="meta"><span>panel v135</span><span>.NET 10 core</span><span>Qt 6.8.3 / PySide6</span><span>reference scene SF-50k</span><span><a href="SceneForge_dokumentacja_v014_PL.html">Wersja polska</a></span></div>
-</header>
-
-<nav class="toc" aria-label="Contents">
-  <ol>
-    <li><a href="#instalacja"><span class="num">01</span>Installation</a></li>
-    <li><a href="#start"><span class="num">02</span>First run</a></li>
-    <li><a href="#filtr"><span class="num">03</span>Filter language</a></li>
-    <li><a href="#kolumny"><span class="num">04</span>Columns</a></li>
-    <li><a href="#soczewki"><span class="num">05</span>Lenses</a></li>
-    <li><a href="#skroty"><span class="num">06</span>Shortcuts</a></li>
-    <li><a href="#raporty"><span class="num">07</span>Scene reports</a></li>
-    <li><a href="#turbo"><span class="num">08</span>Explorer Turbo</a></li>
-    <li><a href="#wydajnosc"><span class="num">09</span>Performance</a></li>
-    <li><a href="#slad"><span class="num">10</span>Footprint in the scene</a></li>
-    <li><a href="#klopoty"><span class="num">11</span>Troubleshooting</a></li>
-  </ol>
-</nav>
-
-<main>
-
-<section id="instalacja">
-  <h2><span class="n">01</span>Installation</h2>
-  <p>Drag the received <code>.mzp</code> onto a 3ds Max viewport. The installer verifies every copied file by size and finishes with a check that walks the disk from scratch — if anything is missing it names it, instead of writing “done”.</p>
-  <p>This release requires 3ds Max 2027. The installer checks the Max version and stops if it does not match — instead of leaving you a full set of files and a panel that will not open.</p>
-  <p>The three places the files go:</p>
-  <div class="tbl"><table>
-    <thead><tr><th>what</th><th>where</th></tr></thead>
-    <tbody>
-      <tr><td>core, panel, columns, scene listener</td><td><code>scripts\SceneForge\</code></td></tr>
-      <tr><td>the commands visible in Customize</td><td><code>usermacros\SceneForge.mcr</code></td></tr>
-      <tr><td>registration of the menu entry</td><td><code>scripts\startup\</code></td></tr>
-    </tbody>
-  </table></div>
-  <p>Installing is repeatable: on every update the older panel versions are <strong>removed</strong> once the new ones are safely in place, and the final check requires exactly one panel to be left in the folder.</p>
-
-  <h3>Uninstalling</h3>
-  <pre>(SF_odinst = getFiles ((getDir #userScripts) + "\\SceneForge\\SceneForge_odinstaluj_v*.ms"); sort SF_odinst; if SF_odinst.count &gt; 0 then fileIn SF_odinst[SF_odinst.count] else messageBox "SceneForge is not installed.")</pre>
-  <p>It removes the columns from the native explorer, unregisters the scene listener, releases the core and deletes the files. <strong>It does not touch</strong> your keyboard assignments or panel preferences — after reinstalling, everything is as it was.</p>
-  <p>It removes only the files it put there itself — the installer leaves a list of them in the plugin folder. Your own script or note kept in that folder stays untouched, and so does the folder itself; the uninstaller writes down what it left behind and why.</p>
-</section>
-
-<section id="start">
-  <h2><span class="n">02</span>First run</h2>
-  <p>The panel does not start together with Max. Loading the core costs about a second and is meant to happen when you need it — not on every launch of the program.</p>
-  <ol class="steps">
-    <li><strong>Customize → Customize User Interface</strong>, category <code>SceneForge</code>.</li>
-    <li>There are two commands there: <em>SceneForge Outliner</em> and <em>SceneForge - Scene reports</em>. The command names stay in English in both language versions — Max remembers your keyboard assignments by them, so translating them would lose your settings. If you also installed the free <em>Explorer Turbo</em>, its command sits in the same category — that is the third one.</li>
-    <li>Assign a key to them, put them on a toolbar or into a quad menu.</li>
-  </ol>
-  <p>The entry in the main Max menu appears <strong>after restarting</strong> the program. That is not an oversight: in Max 2025+ the menu manager arrives only as a notification parameter, at the moment Max rebuilds the menus itself.</p>
-  <div class="stats">
-    <div class="stat"><div class="v">679 ms</div><div class="l">first run of the command</div></div>
-    <div class="stat"><div class="v">0–1 ms</div><div class="l">later ones — the panel only shows itself</div></div>
-    <div class="stat"><div class="v">101 ms</div><div class="l">snapshot of a 50 026 object scene</div></div>
-  </div>
-
-  <h3>The Menu button</h3>
-  <p>The first button on the bar: <strong>Menu</strong> — every panel command in groups (List and view, Viewport, Layers, Selection, Material, Objects, Reports and rules, Settings and tools), with tooltips and shortcuts on the right. The same as the palette (Ctrl+P), but without typing — the palette only works while the panel has focus, because in Max Ctrl+P is Pan. Next to Health there is a <strong>Reports</strong>button, and the side bar carries the Reports and Rules icons.</p>
-  <h3>What is new in v121–v133</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
-    <tbody>
-      <tr><td class="k">Reports › Timeline</td><td>Names of deleted objects, Ctrl+Z as its own kind</td><td>The name is recorded at the moment of the event, and deleted objects get their name from the snapshot difference (“Box001 (deleted)”). Undo and redo are recognisable in the table.</td></tr>
-      <tr><td class="k">panel</td><td>Selection history: Alt+Left / Alt+Right</td><td>Up to 50 recent selection sets, like back and forward in a browser; a new selection made after going back cuts off the “forward” branch. Objects that no longer exist are counted.</td></tr>
-      <tr><td class="k">above the list</td><td>View tabs</td><td>Saved views as tabs, in the order from the Manage views window (the same one as Ctrl+1…9). A click loads the view.</td></tr>
-      <tr><td class="k">palette</td><td>Annotations: export / import JSON</td><td>Tags, notes and pins by object name, out to a file and back (another version of the file, a colleague). The status bar lists the names that are missing; the import is one undo block.</td></tr>
-      <tr><td class="k">palette</td><td>Merge a file with name checking…</td><td>Names read from a .max file without opening it, a list of collisions with the scene, a prefix for the colliding ones; merged objects keep their names instead of Max's Box002. Note: the merge itself is not undone by Ctrl+Z (mergeMAXFile does not record history); the merged objects are left selected.</td></tr>
-      <tr><td class="k">palette</td><td>Differences between two .max files…</td><td>Only in A, only in B, common to both, by name and without opening the files; CSV. A rename cannot be recognised by name.</td></tr>
-      <tr><td class="k">Preferences › Render queue</td><td>EXPERIMENTAL: Render the selected cameras one after another</td><td>Each camera with the current renderer into folder\camera_name.png at the current resolution. Measured on Scanline, Arnold, V-Ray 7, Corona and FStorm. Max is blocked for the duration of the queue; the time depends on the renderer's own limits.</td></tr>
-      <tr><td class="k">Preferences › Język / Language</td><td>English interface (the default) or Polish</td><td>Labels, tooltips, menus, messages and the filter cheat sheet in the chosen language; changing it reloads the panel. Your own shortcuts and macros work in both languages (they are compared by key). The documentation comes in two versions: English (the default) and Polish. The installer copies both, side by side.</td></tr>
-      <tr><td class="k">side bar</td><td>Presentation mode icon</td><td>The same as Ctrl+Alt+X; the icon state follows the mode.</td></tr>
-      <tr><td class="k">chip bar</td><td>All / None / Invert</td><td>Like Display: All / None / Invert in the Scene Explorer; they act on the category chips, with a single filter recalculation.</td></tr>
-      <tr><td class="k">Preferences › Expert mode</td><td>EXPERIMENTAL: the panel stays in Expert mode</td><td>Ctrl+X in Max hides every dock; with this option the panel asks about Expert mode every 500 ms and returns to its place once the mode is on. Not verified with a floating panel or across several monitors.</td></tr>
-      <tr><td class="k">Ctrl+Alt+X</td><td>Presentation mode</td><td>Only the filter field and the list remain, font +3 pt; pressing it again restores exactly the previous layout. For video and for a laptop.</td></tr>
-    </tbody>
-  </table></div>
-  <h3>What is new in v106–v118</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
-    <tbody>
-      <tr><td class="k">dock</td><td>Panel width</td><td>The toolbars wrap their rows, so a docked panel can be made narrow (the minimum dropped from 1218 px to about 240 px).</td></tr>
-      <tr><td class="k">row menu / palette</td><td>Paste names from the clipboard and select</td><td>The reverse of “Copy names”: names one per line, separated by commas or semicolons, become a selection; the status bar lists the ones that are missing.</td></tr>
-      <tr><td class="k">layer list</td><td>Solo a layer (Alt+click)</td><td>Only that layer stays on, the rest go off with their layout remembered; a second Alt+click restores it. One undo block. Also in the layer menu and the palette.</td></tr>
-      <tr><td class="k">list</td><td>Cameras and lights</td><td>A double click on a camera points the viewport at it; row menu: “Look through this camera”, “Turn lights on / off” (on or enabled, one undo block).</td></tr>
-      <tr><td class="k">above the list</td><td>Path bar</td><td>The ancestors of the current object as buttons (by handle, not by name); a click selects the ancestor. Palette: “Path bar: show or hide”.</td></tr>
-      <tr><td class="k">columns</td><td>Age</td><td>Time since the object last changed in this session (12 s, 5 min, 2.3 h); empty = untouched. The same counter as the filter <code>changed:</code>.</td></tr>
-      <tr><td class="k">columns, row menu, filter</td><td>Tags and notes</td><td>User properties <code>sf_tag</code> (labels separated by commas, a coloured dot) and <code>sf_note</code>; they are saved with the .max file and are visible in Object Properties › User Defined. Filter: <code>tag:urgent</code>, <code>tag:*</code>, <code>tag:0</code>, <code>note:word</code>.</td></tr>
-      <tr><td class="k">filter</td><td><code>map:</code></td><td>Objects whose material uses a map whose file matches the pattern: <code>map:wood*</code>, <code>map:*.hdr</code>, <code>map:tiles</code> (a substring of the file name).</td></tr>
-      <tr><td class="k">lens by material</td><td>Drag rows onto a material header</td><td>The objects take the material of that bucket (onto “(no material)” – the material is removed). One undo block.</td></tr>
-      <tr><td class="k">palette</td><td>Object visibility states…</td><td>Named snapshots of hidden and frozen flags per object, stored in the scene file; restoring one sets exactly that layout, undoable with a single Ctrl+Z.</td></tr>
-      <tr><td class="k">Preferences › Scene file</td><td>Panel settings inside the scene file</td><td>When a .max is saved the panel adds the filter, lens, columns, pins and budgets; opening a file that carries them brings them back. On by default; the palette also has “save now”.</td></tr>
-      <tr><td class="k">palette</td><td>Macros</td><td>“Macro: start recording” notes filters, palette/Menu/shortcut commands and row menu actions; “stop and save…” gives it a name. Every macro is a palette command (“Macro: name”), so it can get its own shortcut. The “Macros…” window runs and deletes them.</td></tr>
-      <tr><td class="k">Preferences › Footer counters</td><td>EXPERIMENTAL: faces of the selection and of the scene</td><td>Off by default. The face total for the whole scene requires counting the faces of every object – on a large scene the first count takes seconds and freezes Max. Turning it on shows a warning.</td></tr>
-      <tr><td class="k">Delete a layer together with its sublayers</td><td>Ctrl+Z undoes all of it</td><td>Measured end to end: one undo brings back the layers, the sublayers, the objects and the assignments. The old warning “do not rely on Ctrl+Z” was a measurement error and is gone.</td></tr>
-      <tr><td class="k">Batch rename</td><td>Regular expressions</td><td>These were there already: the “find” field with “regular expression” ticked, and capture groups in “replace” ($1).</td></tr>
-    </tbody>
-  </table></div>
-  <h3>Undo and redo (v105)</h3>
-  <p>Every panel operation that changes the scene is one entry in the 3ds Max undo history: rename (F2, batch, template), hide, freeze, renderability, display properties, colour, material, an object's layer, hierarchy, hiding and freezing a layer, a new layer, renaming a layer, nesting layers, selection sets, merging duplicates, scene rules, Scene Doctor, viewport painting. Measured by a probe on each of these operations: operation → <em>max undo</em> → the scene state returns to the earlier one (30 out of 30), and <em>max redo</em> brings the change back.</p>
-  <div class="tbl"><table>
-    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
-    <tbody>
-      <tr><td class="k">panel, focus in the list</td><td>Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z</td><td>Max does not receive these keys from a docked window, so the panel intercepts them itself and runs <em>max undo</em> / <em>max redo</em>. In the filter field and in the name editor Ctrl+Z undoes typing, as everywhere else.</td></tr>
-      <tr><td class="k">Menu › palette</td><td>Undo the last operation, Redo</td><td>The same commands from the palette (Ctrl+P) and from the Menu button.</td></tr>
-      <tr><td class="k">Ctrl+Z in the viewport</td><td>the list refreshes by itself</td><td>After an undo or redo (from the viewport as well) the panel synchronises its snapshot with the scene.</td></tr>
-      <tr><td class="k">outside the history</td><td>isolation, viewport filter</td><td>These are modes, not edits: you leave them with a button, not with Ctrl+Z (exactly like the native isolation).</td></tr>
-    </tbody>
-  </table></div>
-  <h3>Production tools (v095–v104)</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>where</th><th>what</th><th>how it works</th></tr></thead>
-    <tbody>
-      <tr><td class="k">Reports › Textures</td><td>Relink the missing ones…</td><td>You point at a folder (subfolders included); every map whose file is missing from disk gets the first file with the same name. BitmapTexture, VRayHDRI, CoronaBitmap, Arnold and any map with a <code>filename</code>. One undo block; a summary of what is still missing.</td></tr>
-      <tr><td class="k">Scene health</td><td>Fix</td><td>Unambiguous fixes with one click: zero or negative scale → 1,1,1; far from the origin → 0,0,0; no material → <em>SceneForge_Domyslny</em>; duplicate names → a number; hidden and frozen → revealed; empty layers → deleted; meshes with no faces → deleted. A confirmation with a count, one undo block.</td></tr>
-      <tr><td class="k">row menu</td><td>Name from a template…</td><td><code>{layer}_{class}_{##}</code>, <code>{mat}</code>, <code>{name}</code>; a preview of old → new before it is applied.</td></tr>
-      <tr><td class="k">Menu › Layers</td><td>Export layers to files…</td><td>Every layer that has objects into its own <code>.max</code> (saveNodes) or <code>.fbx</code> (the current FBX settings), named after the layer.</td></tr>
-      <tr><td class="k">row menu › Material</td><td>Replace this material across the whole scene with…</td><td>The material of the selected object is replaced by one chosen from the scene, on every object that uses it; the list shows usage counts.</td></tr>
-      <tr><td class="k">row menu</td><td>Select objects similar to this one</td><td>The same class, faces and size ±20%, the same material — the query lands in the filter field (so you can adjust it) and the result is selected.</td></tr>
-      <tr><td class="k">right click on a layer</td><td>Face budget for the layer…</td><td>The layer list shows <em>faces / budget</em> and turns red once it is exceeded. 0 removes the budget.</td></tr>
-      <tr><td class="k">row menu</td><td>Pin (the pin above the list)</td><td>A bar of pinned objects above the list, independent of the filter; a click selects and scrolls to them, a right click unpins.</td></tr>
-      <tr><td class="k">Preferences</td><td>Automatic rules</td><td>Opt-in: after a file is opened and after an import the panel waits 1.5 s, rebuilds the list and runs every scene rule.</td></tr>
-      <tr><td class="k">side bar</td><td>X-ray the rest</td><td>The selection stays solid, everything else becomes See-Through; a second click removes it from exactly the objects it was given to.</td></tr>
-    </tbody>
-  </table></div>
-  <h3>Context menu</h3>
-  <p>Right click on a row. The entries the native explorer does not have:</p>
-  <div class="tbl"><table>
-    <thead><tr><th>submenu</th><th>entry</th><th>what it does</th></tr></thead>
-    <tbody>
-      <tr><td class="k">Material</td><td>Open the material in the editor</td><td>In Slate mode it creates or finds the material node in the active view, selects it and puts it into the parameter editor; in classic mode it puts the material into the active slot and opens the editor.</td></tr>
-      <tr><td class="k">Material</td><td>Assign a material from a slot</td><td>A submenu of the 24 classic editor slots, read at the moment it is opened. It assigns to everything selected.</td></tr>
-      <tr><td class="k">Material</td><td>Assign the material from the Slate editor</td><td>The material Slate holds in its parameter editor goes onto the selection.</td></tr>
-      <tr><td class="k">Material</td><td>Copy from the first selected object</td><td>The material of the topmost selected row onto the others — the same instance, not a copy.</td></tr>
-      <tr><td class="k">Material</td><td>Remove the material</td><td>It takes the material off; the material itself stays in the scene if something else uses it.</td></tr>
-      <tr><td class="k">Layer</td><td>New empty layer…</td><td>It creates an empty layer and makes it current (like <em>Create New Layer</em> in Max). The plus button on the side bar does the same; the layer menu additionally has <em>New layer UNDER…</em>, which nests it straight away.</td></tr>
-      <tr><td class="k">Selection</td><td>Add to a set / Remove from a set</td><td>It adds the selection to an existing Max selection set, or takes it out. The list of sets is read when the menu opens — a set created a moment ago in the Max toolbar is already there. A set that has become empty is deleted.</td></tr>
-    </tbody>
-  </table></div>
-  <p>After every operation that changes how the scene looks (hide, freeze, <em>As a box</em>, <em>See-Through</em>, layers, isolation) the core <strong>redraws the viewport immediately</strong> — previously the change only showed up once you moved the view.</p>
-  <p>Each of these operations goes into a single undo block — <code>Ctrl+Z</code> undoes all of it. After a material change only the <strong>rows that were touched</strong>are refreshed, so the filter and the lens stay where they were.</p>
-</section>
-
-<section id="filtr">
-  <h2><span class="n">03</span>Filter language</h2>
-  <p>The filter field accepts a plain substring, but it also understands a syntax that replaces the <em>Advanced Filter</em>window. Conditions are joined with a space (a conjunction), and each of them can be negated with a minus: <code>-hidden:1</code>. Parentheses with a vertical bar mean “or”: <code>(layer:A | layer:B)</code>.</p>
-  <pre>type:VRayLight layer:02_* poly:&gt;100k -hidden:1</pre>
-
-  <div class="note pass"><span class="h">The field suggests as you type</span><p>You do not have to know the tables below by heart. Start typing and you will see the keys; <strong>after the colon — the values from this scene</strong>, with object counts, so you can see straight away how many objects you will get. A list of classes that are not in the scene would be noise, so we do not show it.</p><p>Only the <strong>term under the cursor</strong>is completed, so the rest of the query stays untouched. A value containing a space is quoted automatically. When there are more matches than the list can hold, the last entry says how many are left — a missing entry never pretends to be a missing layer.</p></div>
-
-  <h3>Prefixes</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>syntax</th><th>means</th></tr></thead>
-    <tbody>
-      <tr><td class="k">type: class</td><td>the object class, not localised — <code>Box</code>, <code>Editable_Poly</code>. Also <code>klasa:</code></td></tr>
-      <tr><td class="k">layer: name</td><td>the layer; an asterisk works as a wildcard. Also <code>warstwa:</code></td></tr>
-      <tr><td class="k">mat: name</td><td>the material. Also <code>material:</code></td></tr>
-      <tr><td class="k">poly:&gt;100k</td><td>the face count; operators <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>. Also <code>sciany:</code></td></tr>
-      <tr><td class="k">depth:&gt;2</td><td>the depth in the hierarchy. Also <code>glebokosc:</code></td></tr>
-      <tr><td class="k">children:&gt;0</td><td>the number of children. Also <code>dzieci:</code></td></tr>
-      <tr><td class="k">instances:&gt;1</td><td>the number of objects sharing the mesh. Also <code>instancje:</code></td></tr>
-      <tr><td class="k">selset: name</td><td>a named Max selection set. Also <code>zestaw:</code></td></tr>
-      <tr><td class="k">~word</td><td>a <strong>fuzzy</strong> search in the name: one typo, a missing letter or one letter too many still matches (<code>~teapot</code> finds <em>Teapto01</em>). Words shorter than 4 characters are not fuzzed.</td></tr>
-      <tr><td class="k">changed:&lt;10m</td><td>objects changed within a time window, according to the event listener: <code>&lt;10m</code>, <code>&gt;2h</code>, <code>&lt;45s</code>, <code>&gt;1d</code>. The chip <em>Last 10 min</em> does the same; <code>is:recent</code> = 10 minutes.</td></tr>
-      <tr><td class="k">is:changed</td><td>added or changed since the remembered baseline (Reports → Snapshot comparison).</td></tr>
-      <tr><td class="k">size:&gt;1000</td><td>the largest bounding box dimension <strong>in world space</strong> (with the node scale), in scene units; geometry only — lights and cameras drop out of every comparison. The first use computes the bounding boxes of all objects (the same cost as <code>poly:</code>), after that it comes from memory. Also <code>rozmiar:</code></td></tr>
-      <tr><td class="k">cat: category</td><td>the category by the SuperClassID of the base object: <code>Geometry</code>, <code>Shape</code>, <code>Light</code>, <code>Camera</code>, <code>Helper</code>, <code>SpaceWarp</code>, <code>System</code> — the same thing the native explorer filters by. <code>cat:Light</code> finds the lights of every renderer without knowing the class names. A typo gives an error with the list of categories, not an empty list. Also <code>kategoria:</code></td></tr>
-      <tr><td class="k">group: name</td><td>the group. Also <code>grupa:</code></td></tr>
-      <tr><td class="k">hidden:1</td><td>hidden. Also <code>ukryty:</code></td></tr>
-      <tr><td class="k">frozen:1</td><td>frozen. Also <code>zamrozony:</code></td></tr>
-      <tr><td class="k">is: trait</td><td>a scene health chip — see below. Also <code>jest:</code></td></tr>
-    </tbody>
-  </table></div>
-
-  <h3>Chips <code>is:</code></h3>
-  <div class="tbl"><table>
-    <thead><tr><th>chip</th><th>finds</th></tr></thead>
-    <tbody>
-      <tr><td class="k">is:zeroscale</td><td>objects with zero scale — invisible in the render, yet still in the scene</td></tr>
-      <tr><td class="k">is:nonuniform</td><td>non-uniform scale, a common cause of trouble on export</td></tr>
-      <tr><td class="k">is:faraway</td><td>objects far away from the rest of the scene; usually a mistake while pasting</td></tr>
-      <tr><td class="k">is:missingmat</td><td>with no material. Also <code>is:bezmaterialu</code></td></tr>
-      <tr><td class="k">is:orphan</td><td>with no parent and no children. Also <code>is:sierota</code></td></tr>
-      <tr><td class="k">is:emptylayer</td><td>empty layers</td></tr>
-      <tr><td class="k">is:unresolvedxref</td><td>unresolved external references</td></tr>
-      <tr><td class="k">is:nolayer</td><td>with no layer. Also <code>is:bezwarstwy</code></td></tr>
-      <tr><td class="k">is:leaf</td><td>leaves of the hierarchy. Also <code>is:lisc</code></td></tr>
-      <tr><td class="k">is:root</td><td>roots. Also <code>is:korzen</code></td></tr>
-      <tr><td class="k">is:unique</td><td>a mesh used only once. Also <code>is:unikat</code></td></tr>
-      <tr><td class="k">is:instance</td><td>an object sharing a mesh. Also <code>is:instancja</code></td></tr>
-      <tr><td class="k">is:reference</td><td>a reference. Also <code>is:referencja</code></td></tr>
-      <tr><td class="k">is:selected</td><td>selected in the scene. Also <code>is:zaznaczony</code></td></tr>
-      <tr><td class="k">is:grouphead</td><td>a group head</td></tr>
-      <tr><td class="k">is:groupmember</td><td>an object inside a group</td></tr>
-    </tbody>
-  </table></div>
-  <h3>Query history</h3>
-  <p>The <em>hist.</em> button next to the field drops down the recent queries (up to 20, newest on top); a click puts the query into the field. Only queries the core accepted without an error get there — an unclosed parenthesis typed halfway does not. The history is remembered between sessions. The command <em>Select by size…</em> in the palette asks for a condition (e.g. <code>&gt;1000</code>), writes <code>size:</code> into the filter and selects everything that is left.</p>
-
-  <h3>Category and state chips</h3>
-  <p>Below the filter field there is a row of buttons: <em>Geometry, Shapes, Lights, Cameras, Helpers, Space warps, Bones</em> and <em>Hidden, Frozen, Selected</em>. Category chips combine with “or” (an object has one category), state chips with “and”. They are <strong>prepended</strong> to the text in the field, so <em>Lights</em> + <em>Hidden</em> + a typed <code>layer:02_*</code> means: hidden lights from those layers. The category chips show the number of objects in the scene. The <code>x</code> button clears every chip and leaves the text. The bar can be switched off in the preferences or from the palette.</p>
-  <div class="note pass"><span class="h">Measured</span><p>Filtering by class and layer compares indices, not text: <strong>0.05–0.08&nbsp;ms</strong> on a scene of 50&nbsp;026 objects. The worst case — a text pattern over the names — <strong>4.35&nbsp;ms</strong>, against a frame budget of 16&nbsp;ms.</p></div>
-</section>
-
-<section id="kolumny">
-  <h2><span class="n">04</span>Columns</h2>
-  <p>Columns are chosen and reordered in <em>Columns…</em> on the panel bar. The choice is stored in the preferences.</p>
-  <div class="tbl"><table>
-    <thead><tr><th>column</th><th>what it shows</th></tr></thead>
-    <tbody>
-      <tr><td class="k">Name</td><td>The only one that cannot be switched off — it holds the hierarchy indent, the class icon and the expand triangle.</td></tr>
-      <tr><td class="k">Class</td><td>The class name, not localised.</td></tr>
-      <tr><td class="k">Layer</td><td>The layer the object belongs to.</td></tr>
-      <tr><td class="k">State</td><td>An eye and a snowflake. <strong>Clickable</strong> — a click toggles that one object, regardless of the selection.</td></tr>
-      <tr><td class="k">Colour</td><td>The wireframe colour as a swatch and a hexadecimal value.</td></tr>
-      <tr><td class="k">Material</td><td>The material name. Empty = no material.</td></tr>
-      <tr><td class="k">Faces</td><td>The face count, computed <strong>lazily</strong>. Three dots mean “not counted yet”, never zero.</td></tr>
-      <tr><td class="k">Instances</td><td><code>×12</code> — twelve instances. <code>R3</code> — three objects on a shared base object.</td></tr>
-      <tr><td class="k">Mod.</td><td>The number of modifiers in the whole chain. An empty field = zero, three dots = not counted yet.</td></tr>
-      <tr><td class="k">Depth</td><td>How deep in the hierarchy the object sits.</td></tr>
-      <tr><td class="k">Children</td><td>The number of <strong>direct</strong> children of the node. Sortable.</td></tr>
-      <tr><td class="k">Verts</td><td>The vertex count from the top of the stack, noted while counting faces — it costs no separate evaluation. Three dots = not counted yet, a dash = not geometry.</td></tr>
-      <tr><td class="k">Size</td><td>The largest bounding box dimension in world space, in scene units; the same one used by <code>size:</code>. Computed lazily for the visible rows.</td></tr>
-      <tr><td class="k">Flags</td><td>State letters: <code>H</code> hidden, <code>F</code> frozen, <code>S</code> selected, <code>G</code> group head, <code>g</code> group member. The same as the icons in the State column, but as text — it copies into CSV.</td></tr>
-      <tr><td class="k">Path</td><td>The ancestors from the root, separated by slashes. Useful in flat mode, where the hierarchy indent disappears.</td></tr>
-    </tbody>
-  </table></div>
-  <p>The Children, Verts, Size and Path columns travel through a separate core channel and are fetched <strong>only when one of them is switched on</strong> — a column nobody turned on costs nothing.</p>
-  <div class="note"><span class="h">About the face count</span><p><code>getPolygonCount</code> reads <strong>the top of the modifier stack</strong>, not the base mesh. Weighted Normals can turn 102&nbsp;152 vertices into 400&nbsp;824 — the Faces column then shows the effect of the stack, and the Mod. column its cause.</p></div>
-</section>
-
-<section id="soczewki">
-  <h2><span class="n">05</span>Lenses</h2>
-  <p>Instead of two separate windows (Hierarchy and Layer) there is one view and a grouping switch.</p>
-  <div class="tbl"><table>
-    <thead><tr><th>lens</th><th>arranges the scene</th></tr></thead>
-    <tbody>
-      <tr><td class="k">no grouping</td><td>a plain parent–child hierarchy</td></tr>
-      <tr><td class="k">by layer</td><td>the equivalent of the Layer Explorer</td></tr>
-      <tr><td class="k">by class</td><td>a bucket per object class</td></tr>
-      <tr><td class="k">by material</td><td>a bucket per material</td></tr>
-      <tr><td class="k">by material (tree)</td><td>Multi/Sub-Object expanded into its submaterials</td></tr>
-      <tr><td class="k">by instance</td><td>one row per mesh, the objects inside it</td></tr>
-      <tr><td class="k">by group</td><td>a bucket per nearest group head (nested groups count the nearest one), everything else in <em>(outside a group)</em></td></tr>
-      <tr><td class="k">by face count</td><td>buckets by order of magnitude: below 1 000, 1 000–9 999, … The first use counts the faces of every object (the same cost as <code>poly:</code>), after that it comes from memory</td></tr>
-    </tbody>
-  </table></div>
-  <div class="note"><span class="h">Viewport colouring</span><p>From the palette: <em>Viewport: colour objects by layer / class / material / face count</em>. The wireframe colour of every object is replaced (faces: a green → red gradient by order of magnitude — a heat map of the scene's weight). <strong>This is a change to the scene</strong>: a violet bar above the list is there to remind you, and <em>Restore wireframe colours</em> brings back the originals (also when the panel is closed, and through Ctrl+Z).</p></div>
-  <div class="note"><span class="h">Scene rules</span><p><em>Scene rules…</em> from the palette: a filter query + an action (hide, freeze, select, as a box, See-Through, renderability, move to a layer). A rule acts on <strong>the whole scene</strong>, including objects the filter is not showing. <em>Test</em> says how many objects match before you change anything; <em>Run all</em> runs the list one by one. The rules live in a file next to the preferences.</p></div>
-  <div class="note"><span class="h">Nesting layers</span><p>In the layer list <strong>drag a layer onto another layer</strong>to nest it underneath; drop it on an empty part of the list to pull it back to the root. Max itself refuses a cycle (a parent under its own child) — the status bar then says how many layers were rejected. The operation can be undone.</p></div>
-  <div class="note"><span class="h">Dragging a material</span><p>In the <em>by material</em> lens a bucket header can be <strong>dragged onto an object row</strong>. Dropping it on a row that belongs to the selection assigns the material to the whole selection; on a row outside it — only to that row. The <em>(no material)</em> header dropped onto an object takes its material off. The identity of a material is the object in the bucket, not the name — two materials can share a name. The operation can be undone.</p></div>
-</section>
-
-<section id="skroty">
-  <h2><span class="n">06</span>Shortcuts</h2>
-  <p>They work while the panel has focus. Max's own shortcuts are not intercepted — <strong>measured</strong>: control outside the panel 4/4, focus in the list 4/4, <code>Ctrl+Z</code> 3/3, and in the filter field the shortcuts are correctly disabled so that the letter reaches the field.</p>
-  <div class="tbl"><table>
-    <thead><tr><th>key</th><th>does</th></tr></thead>
-    <tbody>
-      <tr><td class="k">F2</td><td>rename in place</td></tr>
-      <tr><td class="k">Ctrl+F2</td><td>batch rename, with a preview</td></tr>
-      <tr><td class="k">Ctrl+P</td><td>the command palette — objects, actions and layers at once</td></tr>
-      <tr><td class="k">Ctrl+A</td><td>select everything visible</td></tr>
-      <tr><td class="k">Ctrl+I</td><td>invert the selection</td></tr>
-      <tr><td class="k">Ctrl+D</td><td>clear the selection</td></tr>
-      <tr><td class="k">Alt+Enter</td><td>object properties</td></tr>
-      <tr><td class="k">Ctrl+Alt+Q</td><td>isolation — in and out</td></tr>
-      <tr><td class="k">Ctrl+Alt+F</td><td>the filter drives visibility in the viewport</td></tr>
-      <tr><td class="k">Ctrl+Alt+S</td><td>“selected only” mode</td></tr>
-      <tr><td class="k">Ctrl+Alt+K</td><td>choice of visible columns</td></tr>
-      <tr><td class="k">Ctrl+Shift+R</td><td>scene reports</td></tr>
-      <tr><td class="k">Ctrl+Shift+L</td><td>layer states</td></tr>
-      <tr><td class="k">Ctrl+1…9</td><td>saved views</td></tr>
-    </tbody>
-  </table></div>
-  <p>Your own assignments: <em>Preferences → Shortcuts</em>. They travel the same path as the built-in ones, so there are not two classes of shortcut behaving differently.</p>
-</section>
-
-<section id="raporty">
-  <h2><span class="n">07</span>Scene reports</h2>
-  <p><code>Ctrl+Shift+R</code>. Four tabs, none of which computes itself when the window opens — scanning a large scene takes time, and a window that freezes Max on opening gets opened once.</p>
-
-  <h3>Geometry duplicates</h3>
-  <p><strong>Merge ALL</strong> walks every group in the table, checks the vertices and merges them into instances — 340 identical chairs become one mesh and 340 instances. A group with different geometry is skipped and named in the summary. Each group is its own undo block.</p>
-  <p>Groups of objects with an identical signature, sorted descending. Merging into instances <strong>first compares the vertex positions</strong> and refuses when they differ — two meshes with the same face count and the same dimensions need not be the same mesh.</p>
-  <div class="stats">
-    <div class="stat"><div class="v">2849 ms</div><div class="l">scan of a whole 50 026 object scene</div></div>
-    <div class="stat"><div class="v">1.47 ms</div><div class="l">group members from memory</div></div>
-  </div>
-
-  <h3>Scene weight</h3>
-  <p>Faces and objects per layer and per class. The face count is lazy in the snapshot, so the report computes it first — and <strong>says how many remain unknown</strong>. Counting them as zero would give totals smaller than the truth and looking perfectly reasonable.</p>
-
-  <h3>Textures</h3>
-  <p>Every bitmap map: what weighs how much, and what is missing. <strong>One row per file, not per occurrence</strong> — the same map used a hundred times does not take up a hundred places on disk. The size is the file size, not the memory footprint: that depends on compression and mipmaps and cannot be derived from the resolution. A file that is not there has the size <code>?</code>, not zero.</p>
-
-  <h3>Snapshot comparison</h3>
-  <p><em>Remember the baseline</em> stores the state of the whole scene by handle (name, layer, material, class, parent, faces). <em>Compare</em> shows what was added, removed and changed — one difference per row, with CSV export. <em>Show the changed ones in the list</em> writes <code>is:changed</code> into the filter. An audit of “what have I touched since this morning” in a single table.</p>
-  <h3>Timeline</h3>
-  <p>The most recent scene events (added, deleted, structure, name, state) with a time and a name — a ring of 5 000 events. The <em>in the list</em> writes <code>changed:&lt;N m</code> into the filter.</p>
-  <h3>Scene card</h3>
-  <p>A single HTML file with the numbers about the scene: objects, layers, faces, the heaviest layers and classes, scene health, textures, duplicates. To send to somebody who does not have Max. <em>Compute</em> gathers the reports (the duplicate scan takes about 2 s on 50 000 objects), <em>Save HTML…</em> opens the file in a browser.</p>
-  <h3>Naming</h3>
-  <p>Rules in the form <code>name|regular expression</code>, one per line. An object breaks the convention when it matches <strong>none of them</strong>. A bad pattern shows <code>ERROR</code> instead of pretending that nothing matches — a typo in a pattern would report the whole scene as a deviation, and that would look like a genuine result.</p>
-  <p>The names found can be fixed in the same window. The fix works by <strong>handles</strong>, not by view rows: a filtered-out object has no row number, so going through the view would fix 40 names out of 300 and report “40 changed”.</p>
-  <div class="note pass"><span class="h">Undo</span><p>The whole fix is one <code>Ctrl+Z</code>. On top of that, a CSV file with the old names is written next to the scene before the change — the undo history does not survive saving and closing the scene, but that file does.</p></div>
-</section>
-
-<section id="turbo">
-  <h2><span class="n">08</span>Explorer Turbo</h2>
-  <p>A separate, free tool for the <strong>native</strong> Max Scene Explorer. It does not require SceneForge and does not carry its code.</p>
-  <ul>
-    <li><strong>Suspending the refresh</strong> with a single switch, with the state visible on the bar.</li>
-    <li><strong>Four columns</strong>the native explorer does not have: modifiers, children, instances and a short note on node health.</li>
-  </ul>
-  <div class="note warn"><span class="h">What is not there, and why</span><p>There is no face-count column. Reading it from MAXScript costs <strong>311 µs per object</strong>, that is 15.6&nbsp;ms per 50 visible rows — nearly a whole frame. And that on light primitives, so for real geometry it is a lower bound. A tool meant to cure a sluggish explorer cannot be what makes it sluggish.</p></div>
-  <p>What does go in costs, all together, <strong>0.856 ms per 50 visible rows</strong>. One thing saves us: Max only asks about the rows you can see — measured at about 50 on opening and zero growth after two seconds of idling.</p>
-</section>
-
-<section id="wydajnosc">
-  <h2><span class="n">09</span>Performance</h2>
-  <p>The same operations, the same scene, the same Max session. The minimum of a series, not the average.</p>
-  <div class="tbl"><table>
-    <thead><tr><th>operation</th><th class="num">native explorer</th><th class="num">SceneForge</th><th class="num">ratio</th></tr></thead>
-    <tbody>
-      <tr><td>opening and filling</td><td class="num">92 992 ms</td><td class="num">101 ms</td><td class="num">920×</td></tr>
-      <tr><td>expanding the whole tree</td><td class="num">3 383 298 ms</td><td class="num">1 ms</td><td class="num">&gt;10⁶×</td></tr>
-      <tr><td>cost of an idle window</td><td class="num">+0 %</td><td class="num">+0,9 %</td><td class="num">a draw</td></tr>
-      <tr><td>update after adding 1000 objects</td><td class="num">—</td><td class="num">4.4–6.3 ms</td><td class="num">see below</td></tr>
-    </tbody>
-  </table></div>
-  <p>Three things in this table that are easy to read wrong:</p>
-  <ul>
-    <li><strong>An idle native explorer costs nothing.</strong> The common form of the complaint — “an open explorer slows Max down” — is untrue as stated. The cost sits in filling and rebuilding the list.</li>
-    <li><strong>The last row has no “native” column, and that is the honest answer.</strong> Creating 1000 objects costs Max itself 8.7–12.9&nbsp;s, and the spread between identical runs reaches 47&nbsp;%. An overhead of a few milliseconds cannot be seen inside that — on either side. So we quote what was measured directly: our own snapshot update.</li>
-    <li><strong>Our “1 ms” is real work.</strong> The view grows from 33&nbsp;812 to 50&nbsp;026 rows and hands back data from the start, the middle and the end of the list. It is cheap because the view is an array of indices, and only the rows you can see are drawn.</li>
-  </ul>
-  <h3>Busy signal</h3>
-  <p>Operations on a large selection can take seconds. From 500 objects up, the panel says in the status bar what it is doing and switches the cursor to the busy one. The threshold was not picked by eye: at 500 objects the slowest of those operations takes 67 ms, which is imperceptible, while at 1000 it is already 214 ms. The signal itself costs 3.4 ms and appears only where you are waiting anyway.</p>
-  <div class="note"><span class="h">A correction</span><p>An earlier version of this page quoted “+111&nbsp;ms for us against +6&nbsp;ms for the native one” here, and the sentence “this is where we are slower”. Checking that charge demolished <strong>the measurement itself</strong>, not the code: both numbers were samples from noise 37 times larger than they were. The method “measure the whole operation and subtract” had no chance of seeing an effect of a few milliseconds.</p></div>
-</section>
-
-<section id="slad">
-  <h2><span class="n">10</span>Footprint in the scene</h2>
-  <p>A <code>.max</code> file is a compound document with eleven streams. After a full session of use — refreshing, filters, lenses, face counting, every report, a duplicate scan — a stream by stream comparison:</p>
-  <div class="tbl"><table>
-    <thead><tr><th>stream</th><th>without the plugin</th><th>after a session</th></tr></thead>
-    <tbody>
-      <tr><td><code>Scene</code> — the scene data, 287 078 B</td><td class="k">daf529c31a270f0c</td><td class="k">daf529c31a270f0c</td></tr>
-      <tr><td><code>Config</code></td><td class="k">68d949cbd1c3fc17</td><td class="k">68d949cbd1c3fc17</td></tr>
-      <tr><td>the remaining eight</td><td colspan="2">identical</td></tr>
-      <tr><td><code>SummaryInformation</code> — the viewport thumbnail</td><td colspan="2">differs between two saves as well <strong>without</strong> the plugin</td></tr>
-    </tbody>
-  </table></div>
-  <p>Not one word of ours — <code>SceneForge</code>, <code>SF_CORE</code>, the column names — appears in the saved file.</p>
-  <div class="note"><span class="h">One exception, a deliberate one</span><p>You save layer states yourself, with the command <code>Ctrl+Shift+L</code>. They then go into the <code>Config</code>stream, because a layer state describes <em>this</em> scene and means nothing in another one. It is the only thing the plugin puts into the file — and only when you ask for it.</p></div>
-</section>
-
-<section id="klopoty">
-  <h2><span class="n">11</span>Troubleshooting</h2>
-  <div class="tbl"><table>
-    <thead><tr><th>symptom</th><th>what to do</th></tr></thead>
-    <tbody>
-      <tr><td>I want to send a log to support</td><td>The panel writes its log to <code>dziennik_panelu.txt</code> in the configuration folder (next to <code>preferencje.json</code>); the scene change listener writes to <code>SceneForge_events_log.txt</code> in the Max user scripts folder.</td></tr>
-      <tr><td>The list is empty although the scene is not</td><td>The core and the panel have drifted apart in version. Reload with the command from Customize; if that does not help, install the package again — the installer removes the old versions.</td></tr>
-      <tr><td>The Faces column shows three dots</td><td>That is how it should be. The face count is computed for the rows you can see, with a budget of 2 ms per pass. Scroll, or wait a moment.</td></tr>
-      <tr><td>There is no SceneForge entry in the menu</td><td>It appears after 3ds Max is restarted. The commands in Customize work right away.</td></tr>
-      <tr><td>The naming report flags the whole scene</td><td>The default rules (<code>SM_</code>, <code>HLP_</code>, <code>LGT_</code>, <code>CAM_</code>) are examples meant to be replaced. Type your own and save.</td></tr>
-      <tr><td>Merging duplicates refuses</td><td>The meshes have the same face count and the same dimensions, but <strong>different vertex positions</strong>. The refusal is the correct result here.</td></tr>
-      <tr><td>I cannot see what the object got parented to</td><td>The parent is filtered out. Clear the filter, or switch on auto-expand to the selection in the preferences.</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-</main>
-
-<footer>SceneForge Outliner &middot; panel v135 &middot; documentation v014 (EN) &middot; numbers measured on 3ds Max 2027, scene SF-50k (50 026 objects, 201 layers)</footer>
+</head>
+<body>
+<div class="strona">
+<h1>SceneForge Outliner</h1>
+<div class="podtytul">User Guide &middot; 1.0 beta for 3ds Max 2027 &middot; by ForgePlugins</div>
+<p>SceneForge Outliner is a fast scene browser for 3ds Max: one docked panel with a powerful filter, lenses, layers, isolation, reports and batch tools. This guide covers the beta build. Every command described here is in the panel; hover over any button for its tooltip.</p>
+<div class="beta"><b>Beta.</b> This build has no limits and needs no license key. The <b>License...</b> window shows the license as active for <b>Beta</b>. Please report anything odd: see <a href="#bugs">Reporting bugs</a>.</div>
+<h2 id="contents">Contents</h2>
+<ol class="spis">
+<li><a href="#quick-start">Quick start</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#panel">The panel at a glance</a></li>
+<li><a href="#list">The object list</a></li>
+<li><a href="#selecting">Selecting</a></li>
+<li><a href="#filter">The filter and its language</a></li>
+<li><a href="#lenses">Lenses, row colours and explorer layouts</a></li>
+<li><a href="#layers">Layers</a></li>
+<li><a href="#groups">Groups, hierarchy and pivots</a></li>
+<li><a href="#isolation">Isolation and viewport modes</a></li>
+<li><a href="#palette">Command palette, Menu button and undo</a></li>
+<li><a href="#reports">Scene reports</a></li>
+<li><a href="#health">Scene health (Scene Doctor)</a></li>
+<li><a href="#rules">Scene rules</a></li>
+<li><a href="#rename">Batch rename and name by template</a></li>
+<li><a href="#objects">Object properties, materials, cameras and lights</a></li>
+<li><a href="#macros">Macros, states, views and configuration</a></li>
+<li><a href="#export">Export and import</a></li>
+<li><a href="#performance">Performance and Light mode</a></li>
+<li><a href="#shortcuts">Keyboard shortcuts</a></li>
+<li><a href="#preferences">Preferences</a></li>
+<li><a href="#bugs">Reporting bugs</a></li>
+<li><a href="#privacy">Privacy &amp; footprint</a></li>
+<li><a href="#limitations">Known limitations in this beta</a></li>
+</ol>
+<h2 id="quick-start" class="czesc">1. Quick start</h2>
+<p>Five minutes, seven steps. You need 3ds Max 2027 with SceneForge installed and any scene open (the bigger, the better).</p>
+<h3>1. Open the panel</h3>
+<ul><li>Right after installing, answer <b>Yes</b> to <i>Open the panel now to check that it works?</i></li><li>Later: main menu <b>SceneForge &gt; SceneForge Outliner</b>. The <b>SceneForge</b> menu appears after you restart 3ds Max once.</li><li>Or: <b>Customize &gt; Customize User Interface</b>, category <b>SceneForge</b>, command <b>SceneForge Outliner</b>. Give it a keyboard key or put it on a toolbar.</li><li>The panel opens as a docked window. The first opening loads the plugin and takes a moment; after that it just shows the panel.</li></ul>
+<h3>2. Find an object with the filter</h3>
+<ul><li>Click the filter field at the top (its grey hint starts with <i>filter: name, type:Box ...</i>).</li><li>Type part of a name, for example <code>chair</code>. The list shrinks while you type. Case does not matter.</li><li>Try a key: <code>type:Box</code>, <code>layer:Walls*</code>, <code>-hidden:1</code> (the minus means NOT). A space between terms means AND.</li><li>Or click a chip under the field: <b>Geometry</b>, <b>Lights</b>, <b>Cameras</b> ... <b>Hidden</b>, <b>Frozen</b>, <b>Selected</b>, <b>Last 10 min</b>. The <b>x</b> button clears the chips.</li><li>Delete the text to see the whole scene again. The <b>?</b> button shows the full filter cheat sheet.</li></ul>
+<h3>3. Select</h3>
+<ul><li>Click a row: the object is selected <b>in the scene</b>. <kbd>Ctrl</kbd>+click adds or removes, <kbd>Shift</kbd>+click selects a range.</li><li><kbd>Ctrl</kbd>+drag over rows selects every row you pass. (A drag without Ctrl moves objects: onto another row it links them as children.)</li><li><kbd>Ctrl</kbd>+<kbd>A</kbd> selects everything the list shows (the filter result, not the whole scene). <kbd>Ctrl</kbd>+<kbd>D</kbd> clears, <kbd>Ctrl</kbd>+<kbd>I</kbd> inverts.</li><li>Select something in the viewport: the list highlights it and scrolls to it.</li></ul>
+<h3>4. Hide and freeze</h3>
+<ul><li>The <b>State</b> column has an eye (visibility) and a snowflake (freeze). Click them.</li><li>On a selected row the click acts on <b>all selected objects</b>; on any other row it acts on that row only.</li><li>Or right-click a row: <b>Hide</b>, <b>Show</b>, <b>Freeze</b>, <b>Unfreeze</b>.</li><li><kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes it in one step (also while the panel has focus).</li></ul>
+<h3>5. The command palette: <kbd>Ctrl</kbd>+<kbd>P</kbd></h3>
+<ul><li>Click inside the panel first. Outside the panel <kbd>Ctrl</kbd>+<kbd>P</kbd> is the 3ds Max Pan tool.</li><li>Type what you want to do. Letters need not be next to each other: <code>brn</code> finds <b>Batch rename</b>.</li><li>Arrows choose, <kbd>Enter</kbd> runs, <kbd>Esc</kbd> closes. Grey commands need something first (usually a selection).</li><li>The <b>Menu</b> button (first on the top bar) has the same commands in groups, without typing.</li></ul>
+<h3>6. Lenses: group the list</h3>
+<ul><li>On the top bar open the drop-down that shows <b>no grouping</b>.</li><li>Choose <b>by layer (Layer Explorer)</b>, <b>by class</b>, <b>by material</b>, <b>by instance</b>, <b>by group</b> or <b>by face count</b>.</li><li>A lens changes only the view, never the scene. The filter and the selection keep working.</li><li>Under the layer lens, right-click a layer header for layer commands (hide, freeze, rename, ...).</li></ul>
+<h3>7. Isolate</h3>
+<ul><li>Select the objects you want to work on, click into the panel and press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Q</kbd>.</li><li>Everything else is hidden. A bar above the list shows <b>Exit isolation (Ctrl+Alt+Q)</b>.</li><li>Press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Q</kbd> again (or click the bar) to bring back exactly what was visible before.</li><li>Isolation is a mode, not an edit: <kbd>Ctrl</kbd>+<kbd>Z</kbd> does not leave it. The 3ds Max <kbd>Alt</kbd>+<kbd>Q</kbd> isolation is a separate tool.</li></ul>
+<div class="wskazowka"><b>Tip.</b> Every button and command has a tooltip. Hover for a second and the panel tells you what it does and what it will not do.</div>
+<h2 id="installation">2. Installation</h2>
+<h3>Requirements</h3>
+<ul><li><b>3ds Max 2027</b> on Windows. This package supports no other version: the installer checks the version and stops if it does not match.</li><li>No internet connection. SceneForge works offline and sends nothing anywhere.</li><li>About 3 MB of disk space in your 3ds Max user folder. No administrator rights are needed.</li></ul>
+<div class="beta"><b>Beta.</b> This beta build has no limits and needs no license key. <b>SceneForge &gt; License...</b> shows the license as active for <b>Beta</b>.</div>
+<h3>Install</h3>
+<ol class="kroki"><li>Save your work. Start 3ds Max 2027 (an empty or an open scene, both are fine).</li><li>Drag the SceneForge <code>.mzp</code> file you received from Windows Explorer onto a 3ds Max viewport. (Alternative: <b>Scripting &gt; Run Script...</b> and pick the <code>.mzp</code> file.)</li><li>The installer checks the 3ds Max version, copies the files and checks every copied file.</li><li>It asks: <i>SceneForge Outliner has been installed. Open the panel now to check that it works?</i><br><b>Yes</b> opens the panel right away (the installation summary then goes only to the MAXScript Listener, <kbd>F11</kbd>).<br><b>No</b> shows the summary window: the copied files, the path of this user guide, how to start the panel, where to report bugs and the line that uninstalls SceneForge.</li><li><b>Restart 3ds Max</b> to get the <b>SceneForge</b> menu in the main menu bar. The commands in <b>Customize User Interface</b> work at once, without a restart.</li></ol>
+<p>Messages you may see instead:</p>
+<table><thead><tr><th>Message</th><th>Meaning</th></tr></thead><tbody><tr><td class="zawijaj"><i>This release of SceneForge is for: 3ds Max 2027. You are running it in 3ds Max ...</i></td><td>Wrong 3ds Max version. Nothing was installed.</td></tr><tr><td class="zawijaj"><i>The package is incomplete, NOTHING has been installed.</i></td><td>The .mzp file is damaged or incomplete. Get the file again.</td></tr><tr><td class="zawijaj"><i>SceneForge -- installation INCOMPLETE.</i></td><td>A file could not be copied (for example it was locked). The window lists it under PROBLEMS. The previous files were left unchanged. Restart 3ds Max and install again.</td></tr></tbody></table>
+<h3>The SceneForge menu</h3>
+<p>After a restart the main menu bar has a <b>SceneForge</b> menu with eight commands. The same commands are in <b>Customize &gt; Customize User Interface</b>, category <b>SceneForge</b>, so you can give them keys, toolbar buttons or quad menu entries.</p>
+<table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td>SceneForge Outliner</td><td>Opens the panel (the first time it loads the plugin).</td></tr><tr><td>SceneForge - Scene reports</td><td>Opens the panel and its Reports window.</td></tr><tr><td>About SceneForge</td><td>Version, install folder, contact.</td></tr><tr><td>License...</td><td>The license window. In this beta it shows <b>Beta</b>.</td></tr><tr><td>Documentation</td><td>Opens this user guide in your web browser. It works offline.</td></tr><tr><td>Report a bug...</td><td>Copies your set-up details to the clipboard and opens the GitHub form or your e-mail.</td></tr><tr><td>Suggest a feature...</td><td>Opens the GitHub feature request form or your e-mail.</td></tr><tr><td>More plugins by the author</td><td>Opens forgeplugins.tech.</td></tr></tbody></table>
+<h3>Where the files go</h3>
+<p>Everything goes into your own 3ds Max user folder, normally <code>%LOCALAPPDATA%\Autodesk\3dsMax\2027 - 64bit\ENU\</code> (<code>ENU</code> is the language of 3ds Max). The summary window shows the exact paths.</p>
+<table><thead><tr><th>Folder</th><th>Contents</th></tr></thead><tbody><tr><td class="zawijaj"><code>scripts\SceneForge\</code></td><td>The plugin: panel, core, scene listener, start script, uninstaller, this user guide and <code>SceneForge_installed.txt</code> (the list of installed files).</td></tr><tr><td class="zawijaj"><code>usermacros\SceneForge.mcr</code></td><td>The eight commands of the SceneForge category.</td></tr><tr><td class="zawijaj"><code>scripts\startup\</code></td><td>A small script that adds the SceneForge menu when 3ds Max starts.</td></tr><tr><td class="zawijaj"><code>plugcfg\SceneForge\</code></td><td>Your settings, created on first use: <code>preferencje.json</code> (preferences), <code>skroty.json</code> (your shortcuts), <code>makra.json</code> (macros), saved views, scene rules, panel state and the panel log <code>dziennik_panelu.txt</code>.</td></tr></tbody></table>
+<div class="uwaga"><b>Language profiles.</b> 3ds Max keeps a separate user folder per language. If you install while running 3ds Max in English and later start it in another language, install SceneForge again in that language.</div>
+<h3>Update to a newer build</h3>
+<ul><li>Drag the new <code>.mzp</code> onto a viewport, exactly like the first time.</li><li>The installer replaces the plugin files and removes the older versions. Your settings, shortcuts, macros, saved views and rules in <code>plugcfg\SceneForge</code> are kept.</li><li>If the panel was open, answer <b>Yes</b> to open the new panel, or simply <b>restart 3ds Max</b>. If you answer No, the previous panel keeps running until the next restart.</li></ul>
+<h3>Uninstall</h3>
+<ol><li><b>Scripting &gt; Run Script...</b>, open the folder <code>scripts\SceneForge</code> (the installation summary shows its full path) and run the file <code>SceneForge_odinstaluj_v...ms</code>.</li><li>Or: <b>Scripting &gt; New Script</b>, paste the lines below and press <kbd>Ctrl</kbd>+<kbd>E</kbd> (Tools &gt; Evaluate All):</li></ol>
+<pre>(
+  SF_odinst = getFiles ((getDir #userScripts) + "\\SceneForge\\SceneForge_odinstaluj_v*.ms")
+  sort SF_odinst
+  if SF_odinst.count &gt; 0 then fileIn SF_odinst[SF_odinst.count]
+  else messageBox "SceneForge is not installed."
+)</pre>
+<ul><li><b>It removes:</b> the open panel (it first leaves isolation and the viewport filter mode and restores painted wireframe colours), the scene callbacks and the scene listener, the SceneForge columns in the native Scene Explorer, the loaded core, the files listed in <code>SceneForge_installed.txt</code>, the commands file, the startup menu script and the listener's own log file.</li><li><b>It keeps:</b> your settings in <code>plugcfg\SceneForge</code> and any file in the plugin folder that SceneForge did not put there (the folder then stays). The final window lists what was removed, what was kept and where; delete the kept files by hand if you do not need them.</li><li>Data already saved inside your .max files stays in those files (see <i>Privacy &amp; footprint</i>).</li><li>The menu entry disappears after you restart 3ds Max.</li></ul>
+<h3>Troubleshooting</h3>
+<table><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody><tr><td class="zawijaj">There is no SceneForge menu</td><td>Restart 3ds Max once after installing. Until then use Customize User Interface, category SceneForge.</td></tr><tr><td class="zawijaj">The panel does not open</td><td>Run <b>SceneForge Outliner</b> from Customize User Interface and look at the MAXScript Listener (<kbd>F11</kbd>) for a message. Then use <b>Report a bug...</b>.</td></tr><tr><td class="zawijaj"><kbd>Ctrl</kbd>+<kbd>P</kbd> pans the viewport</td><td>Panel shortcuts work only while the panel has focus. Click a row or the panel first.</td></tr><tr><td class="zawijaj">Home / End / Page Up / Page Down move the time slider</td><td>Click a row so the list has focus. A green label <i>Home/End/PgUp/PgDn &rarr; list</i> on the bottom bar shows when the list owns these keys.</td></tr><tr><td class="zawijaj">The list does not follow the scene</td><td>Check the <b>auto</b> box on the top bar, or click <b>Refresh</b>.</td></tr><tr><td class="zawijaj">The Faces column shows three dots</td><td>Not counted yet. Counting runs in small steps for the rows you see; scroll or wait. In <b>Light mode</b> automatic counting is paused.</td></tr><tr><td class="zawijaj">A yellow bar says UNDO HAS NOT WORKED</td><td>Some script left an undo block open. When no operation is running, click <b>Close block</b>.</td></tr><tr><td class="zawijaj">Settings were reset</td><td>An unreadable settings file is set aside as <code>&lt;name&gt;.damaged-&lt;time&gt;</code> and defaults are used. The status bar says so.</td></tr><tr><td class="zawijaj">Uninstall left the folder</td><td>It holds files SceneForge did not install. They are listed in the final window. Delete the folder by hand if you do not need them.</td></tr></tbody></table>
+<h2 id="panel" class="czesc">3. The panel at a glance</h2>
+<p>The panel is one docked window. From top to bottom:</p>
+<table><thead><tr><th>Part</th><th>What is there</th></tr></thead><tbody><tr><td>Top bar</td><td><b>Menu</b> button, filter field, <b>hist.</b> (filter history), <b>filter</b> box (switch the filter on or off without losing the text), <b>?</b> (cheat sheet), <b>Refresh</b>, <b>Classes</b>, <b>Layers</b>, <b>Sets</b> (put a class, layer or set into the filter), <b>Health</b>, <b>Reports</b>, the lens drop-down, the viewport drop-down (<i>view: no change / freeze the rest / hide the rest</i>), the row background drop-down, <b>Views</b> and the <b>auto</b> box (automatic refresh).</td></tr><tr><td>Chips</td><td><b>All</b>, <b>None</b>, <b>Invert</b>, then the category chips (Geometry, Shapes, Lights, Cameras, Helpers, Space warps, Bones) and the state chips (Hidden, Frozen, Selected, Last 10 min), and <b>x</b> to clear them.</td></tr><tr><td>Info bars</td><td>Appear only when needed: isolation, viewport filter mode, painted wireframe colours, a stuck undo block, a parent hidden by the filter, pinned objects, the path bar and the view tabs.</td></tr><tr><td>Side bar</td><td>Icon buttons on the left: show or hide categories (right-click = only this category), show hidden, show frozen, layer lens, new layer, reports, rules, X-ray the rest, presentation mode, show only selected, select all, isolate, scene health, command palette, second view, preferences (right-click = keyboard shortcuts) and the cheat sheet.</td></tr><tr><td>Object list</td><td>The scene. Next to it the <b>layer list</b>; below it an optional <b>second view</b>.</td></tr><tr><td>Bottom bar</td><td><b>Explorer:</b> ready-made layouts, <b>Set:</b> named selection sets, <b>Layer list</b> box, the <b>PgUp/PgDn:</b> step and a counter: rows shown / objects selected in the scene.</td></tr><tr><td>Status line</td><td>What the panel just did, and how long it took.</td></tr><tr><td>Performance row</td><td>The <b>Performance</b> button and the <b>Geometry:</b> status (see <i>Performance and Light mode</i>).</td></tr></tbody></table>
+<p>Make the dock as narrow as you like: the bars wrap onto more rows. <kbd>Shift</kbd>+mouse wheel scrolls the list sideways. <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> (<b>Presentation mode</b>) hides everything except the filter field and the list and makes the font bigger; press it again to restore the layout.</p>
+<h2 id="list">4. The object list</h2>
+<h3>Columns</h3>
+<p>Right-click the column header and choose <b>Which COLUMNS to show...</b> (or the palette command <b>Which columns to show...</b>). Tick columns and move them with <b>Up</b> / <b>Down</b>. <b>Defaults</b> returns to the standard set.</p>
+<table><thead><tr><th>Column</th><th>Shows</th></tr></thead><tbody><tr><td>Name</td><td>The name, the hierarchy indent, the class icon and the expand triangle. Always on.</td></tr><tr><td>Class</td><td>The object class, not localised: Box, Editable_Poly ...</td></tr><tr><td>Layer</td><td>The object's layer.</td></tr><tr><td>State</td><td>Eye and snowflake. Click to hide or freeze (see <i>Selecting</i>).</td></tr><tr><td>Color</td><td>Wireframe colour as a swatch and a hex value.</td></tr><tr><td>Material</td><td>The material name. Empty = no material.</td></tr><tr><td>Faces</td><td>Face count at the top of the modifier stack. Counted lazily; three dots = not counted yet.</td></tr><tr><td>Instances</td><td><code>x12</code> = twelve instances; <code>R3</code> = three objects on a common base object.</td></tr><tr><td>Mod.</td><td>Number of modifiers. Empty = none; three dots = not counted yet.</td></tr><tr><td>Depth</td><td>Depth in the hierarchy; 0 = scene root.</td></tr><tr><td>Children</td><td>Number of direct children.</td></tr><tr><td>Verts</td><td>Vertex count, read together with the faces.</td></tr><tr><td>Size</td><td>Largest bounding box dimension in world space, in scene units.</td></tr><tr><td>Flags</td><td>Letters: U hidden, Z frozen, S selected, G group head, g group member (handy in CSV).</td></tr><tr><td>Path</td><td>Ancestors from the root, separated by slashes.</td></tr><tr><td>Age</td><td>Time since the object last changed in this session: 12 s, 5 min, 2.3 h.</td></tr><tr><td>Tags</td><td>Labels from the <code>sf_tag</code> user property, with a coloured dot.</td></tr><tr><td>Note</td><td>Text from the <code>sf_note</code> user property.</td></tr></tbody></table>
+<p>The default set is Name, Class, Layer, State, Color, Material, Faces and Instances. Columns that read geometry (Faces, Verts, Mod., Size) are filled only for the rows you can see, in small steps, so a big scene stays responsive.</p>
+<h3>Sorting</h3>
+<p>Click a column header to sort, click again to reverse, a third time to go back to hierarchy order. Right-click the header for <b>Sort by</b>: name, class, layer, visibility, chronologically (creation order), face count, instance count, material, child count, depth in hierarchy, colour, hierarchy order. <b>Which criteria to show...</b> trims that menu; <b>Reverse current order</b> flips it.</p>
+<h3>Hierarchy</h3>
+<ul><li>Click the triangle to expand or collapse a branch. Row menu <b>Hierarchy</b>: <b>Collapse all</b>, <b>Expand all</b>, <b>Expand to level N</b>, <b>Collapse / Expand all lens headers</b>. Collapsing works in hierarchy order only (no filter, no sorting, no lens).</li><li>Guide lines show who is whose child (Preferences, <b>Hierarchy lines</b>).</li><li><b>Show selected object</b> (palette) expands the branches down to the selected object and scrolls to it.</li></ul>
+<h3>Drag and drop</h3>
+<table><thead><tr><th>Drag</th><th>Result</th></tr></thead><tbody><tr><td class="zawijaj">Rows onto another row</td><td>Links them as children of that object. Nothing moves in the viewport.</td></tr><tr><td class="zawijaj">Rows onto an empty part of the list</td><td>Unlinks them (they become scene roots).</td></tr><tr><td class="zawijaj">Rows onto a layer in the layer list</td><td>Moves them to that layer, in one undo step.</td></tr><tr><td class="zawijaj">Rows onto a material header (by material lens)</td><td>Assigns that material. Onto <b>(no material)</b> removes the material.</td></tr><tr><td class="zawijaj">A material header onto a row</td><td>Assigns the material to that row, or to the whole selection if the row is selected.</td></tr><tr><td class="zawijaj"><kbd>Ctrl</kbd> + drag</td><td>Selects the rows you pass, with auto-scroll at the edges. Nothing moves.</td></tr></tbody></table>
+<p>If you link objects to a parent the filter hides, a bar says so and offers <b>Show parent</b> (clears the filter and scrolls to it) or <b>Hide</b>.</p>
+<h3>Renaming and double-click</h3>
+<ul><li><kbd>F2</kbd> renames the current row in place. For many objects use <kbd>Ctrl</kbd>+<kbd>F2</kbd> (see <i>Batch rename</i>).</li><li>Double-click a row: selects the object with its whole subtree (Preferences, <b>Double-click</b>). Double-click a camera: the active viewport looks through it.</li></ul>
+<h3>Second view, pins, path bar, view tabs</h3>
+<ul><li><b>Second view: show or hide</b> adds a second list under the first one, with its own filter, lens and sorting. The selection is shared, because it belongs to the scene. <b>Second view: copy settings from the top one</b> starts it from the same point.</li><li><b>Pin (pin bar above the list)</b> in the row menu keeps objects at hand above the list, whatever the filter. Click a pin to select it; right-click to unpin.</li><li><b>Path bar: show or hide</b>: the ancestors of the current object as buttons; click one to select it.</li><li><b>View tabs: show or hide</b>: your saved views as tabs above the list.</li></ul>
+<h2 id="selecting">5. Selecting</h2>
+<ul><li>A click on a row selects the object in the scene; <kbd>Ctrl</kbd>+click adds or removes; <kbd>Shift</kbd>+click selects a range. All of it is one undo step.</li><li><kbd>Ctrl</kbd>+drag selects the rows you pass over.</li><li>A selection made in the viewport is highlighted in the list and the list scrolls to it (Preferences: <b>Selection from the scene</b> and <b>scrolling</b>).</li><li><kbd>Ctrl</kbd>+<kbd>A</kbd> <b>Select all in view</b> selects what the list shows after the filter. <kbd>Ctrl</kbd>+<kbd>D</kbd> <b>Clear selection</b> clears the whole scene. <kbd>Ctrl</kbd>+<kbd>I</kbd> <b>Invert selection</b> works within the view.</li><li>Eye / snowflake in the <b>State</b> column: on a selected row it acts on every selected object; on an unselected row on that row only. One undo step.</li><li><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> <b>Show only selected</b>: the list shows only what is selected and follows every change. Your filter text stays.</li><li><kbd>Alt</kbd>+<kbd>Left</kbd> / <kbd>Alt</kbd>+<kbd>Right</kbd> <b>Previous selection</b> / <b>Next selection</b>: selection history like Back and Forward in a browser (up to 50 steps).</li><li>Row menu <b>Select descendants</b>, <b>Select with descendants</b>, <b>Select similar to this object</b> (same class, faces and size within 20%, same material; the query lands in the filter so you can edit it).</li><li><b>Select by size...</b> (palette) asks for a condition such as <code>&gt;1000</code> and selects the result.</li><li><b>Copy names</b> and <b>Paste names from clipboard and select</b>: names one per line (or separated by commas or semicolons) become a selection; missing names are listed in the status bar.</li></ul>
+<h3>Named selection sets</h3>
+<ul><li>Row menu <b>Selection &gt; Create set from selection...</b>, <b>Add to set</b>, <b>Remove from set</b> (an emptied set is deleted).</li><li>The <b>Set:</b> list on the bottom bar selects the objects of a set. The number in brackets is the member count; an exclamation mark means part of the set points at objects that no longer exist.</li><li>Filter by set with <code>set:Name</code>. The panel warns once about a set without a name.</li></ul>
+<h2 id="filter">6. The filter and its language</h2>
+<p>The filter field accepts a plain piece of a name, and it also understands a small query language. The <b>?</b> button shows the same cheat sheet inside the panel. While you type, the field suggests keys, and after the colon the values found in this scene.</p>
+<h3>Combining terms</h3>
+<table><thead><tr><th>Write</th><th>Means</th><th>Example</th></tr></thead><tbody><tr><td>space</td><td>AND</td><td><code>type:Box layer:Walls</code></td></tr><tr><td>- at the start of a term</td><td>NOT</td><td><code>-hidden:1</code></td></tr><tr><td>( a | b )</td><td>OR (brackets can be nested)</td><td><code>(type:Box | type:Sphere)</code></td></tr></tbody></table>
+<h3>Names</h3>
+<table><thead><tr><th>Write</th><th>Finds</th></tr></thead><tbody><tr><td><code>word</code></td><td>Objects whose name contains the word (case-insensitive).</td></tr><tr><td><code>"Box001"</code></td><td>Exactly this whole name.</td></tr><tr><td><code>/expression/</code></td><td>A regular expression on the name.</td></tr><tr><td><code>*</code> and <code>?</code></td><td>Wildcards in names and in key values: <code>layer:Walls_*</code>.</td></tr><tr><td><code>~word</code></td><td>Fuzzy search: one typo, missing letter or extra letter still matches (<code>~teapot</code> finds Teapto01). Words shorter than 4 letters are not fuzzed.</td></tr></tbody></table>
+<h3>Keys</h3>
+<table><thead><tr><th>Key</th><th>Meaning</th><th>Example</th></tr></thead><tbody><tr><td class="zawijaj"><code>type:</code> (also <code>class:</code>)</td><td>Object class</td><td><code>type:VRay*</code></td></tr><tr><td class="zawijaj"><code>layer:</code></td><td>Layer</td><td><code>layer:SF_Root_0*</code></td></tr><tr><td class="zawijaj"><code>mat:</code></td><td>Material name</td><td><code>mat:Chrome</code></td></tr><tr><td class="zawijaj"><code>set:</code></td><td>Named selection set; <code>set:</code> alone = in any set</td><td><code>set:Interior</code></td></tr><tr><td class="zawijaj"><code>cat:</code></td><td>Category: Geometry, Shape, Light, Camera, Helper, SpaceWarp, System</td><td><code>cat:Light</code></td></tr><tr><td class="zawijaj"><code>hidden:</code> <code>frozen:</code> <code>selected:</code></td><td>0 or 1 (empty = 1)</td><td><code>hidden:0</code></td></tr><tr><td class="zawijaj"><code>group:</code></td><td>head, member, 1 or 0</td><td><code>group:head</code></td></tr><tr><td class="zawijaj"><code>poly:</code></td><td>Face count after the modifier stack</td><td><code>poly:&gt;100k</code></td></tr><tr><td class="zawijaj"><code>children:</code></td><td>Number of children</td><td><code>children:&gt;0</code></td></tr><tr><td class="zawijaj"><code>depth:</code></td><td>Depth in the hierarchy</td><td><code>depth:&gt;2</code></td></tr><tr><td class="zawijaj"><code>instances:</code></td><td>How many copies share the object</td><td><code>instances:&gt;1</code></td></tr><tr><td class="zawijaj"><code>size:</code></td><td>Largest bounding box dimension (world, scene units)</td><td><code>size:&gt;1000</code></td></tr><tr><td class="zawijaj"><code>changed:</code></td><td>Changed within a time window (s, m, h, d)</td><td><code>changed:&lt;10m</code></td></tr><tr><td class="zawijaj"><code>tag:</code></td><td>Tag from <code>sf_tag</code>; <code>tag:*</code> any, <code>tag:0</code> none</td><td><code>tag:urgent</code></td></tr><tr><td class="zawijaj"><code>note:</code></td><td>Word in the note <code>sf_note</code></td><td><code>note:check</code></td></tr><tr><td class="zawijaj"><code>map:</code> (also <code>tex:</code>)</td><td>Material uses a map whose file matches</td><td><code>map:*.hdr</code></td></tr><tr><td class="zawijaj"><code>is:</code></td><td>A trait, see below</td><td><code>is:missingmat</code></td></tr></tbody></table>
+<p>Numbers: <code>&gt;100</code> <code>&lt;10</code> <code>&gt;=5</code> <code>&lt;=5</code> <code>=0</code> <code>100..500</code> <code>100</code>, with <code>k</code> and <code>m</code> suffixes (<code>poly:&gt;100k</code>). Put a value with spaces in quotes: <code>set:"Living room furniture"</code>.</p>
+<h3>is: traits</h3>
+<table><thead><tr><th>Trait</th><th>Finds</th></tr></thead><tbody><tr><td class="zawijaj"><code>is:changed</code></td><td>Added or changed since the baseline remembered in Reports &gt; Snapshot comparison</td></tr><tr><td class="zawijaj"><code>is:recent</code></td><td>Changed in the last 10 minutes</td></tr><tr><td class="zawijaj"><code>is:missingmat</code></td><td>No material</td></tr><tr><td class="zawijaj"><code>is:orphan</code></td><td>No parent and no children</td></tr><tr><td class="zawijaj"><code>is:nolayer</code></td><td>No layer</td></tr><tr><td class="zawijaj"><code>is:root</code> / <code>is:leaf</code></td><td>Root / leaf of the hierarchy</td></tr><tr><td class="zawijaj"><code>is:instance</code> / <code>is:reference</code> / <code>is:unique</code></td><td>Shares the object / shares only the base object / occurs once</td></tr><tr><td class="zawijaj"><code>is:selected</code> <code>is:hidden</code> <code>is:frozen</code></td><td>Selected, hidden, frozen</td></tr><tr><td class="zawijaj"><code>is:group</code> <code>is:grouphead</code> <code>is:groupmember</code></td><td>Groups, group heads, group members</td></tr></tbody></table>
+<div class="uwaga"><b>Not there yet.</b> <code>is:zeroscale</code>, <code>is:nonuniform</code>, <code>is:faraway</code> and <code>has:...</code> keys are not supported in this beta. The filter says so with an error instead of showing an empty list. Use <b>Health</b> for scale and distance problems.</div>
+<h3>Examples</h3>
+<pre>type:VRayLight layer:02_* poly:&gt;100k -hidden:1
+(layer:A | layer:B) instances:&gt;1
+cat:Light -hidden:1
+mat:Chrome set:Interior
+~teapot</pre>
+<h3>Chips, history and switches</h3>
+<ul><li>Category chips combine with OR (an object has one category), state chips with AND: <b>Lights</b> + <b>Hidden</b> = hidden lights. Category chips show how many objects of that kind the scene has. <b>All</b> / <b>None</b> / <b>Invert</b> work like Display in the Scene Explorer; <b>x</b> clears the chips and keeps the text. Hide the chip bar in Preferences or with <b>Filter chips: show or hide</b>.</li><li><b>hist.</b> lists the last 20 queries the filter accepted; click one to use it again. The history is kept between sessions.</li><li>The <b>filter</b> box switches filtering off without deleting your query.</li><li><b>Filter delay</b> (Preferences) sets how long the panel waits after the last key (250 ms by default).</li><li>A wrong query shows an error message, never a silent empty list. An unknown set name lists the existing sets.</li></ul>
+<h2 id="lenses">7. Lenses, row colours and explorer layouts</h2>
+<p>A lens regroups the list. It changes only the view; the scene is untouched.</p>
+<table><thead><tr><th>Lens</th><th>Groups the list</th></tr></thead><tbody><tr><td>no grouping</td><td>Plain parent and child hierarchy.</td></tr><tr><td>by layer (Layer Explorer)</td><td>By layer, including empty and nested layers. Right-click a layer header for the layer menu.</td></tr><tr><td>by class</td><td>One header per object class.</td></tr><tr><td>by material</td><td>One header per material, plus <b>(no material)</b>.</td></tr><tr><td>by material (tree)</td><td>Multi/Sub-Object materials opened into their sub-materials.</td></tr><tr><td>by instance</td><td>One header per shared object, its instances under it.</td></tr><tr><td>by group</td><td>One header per nearest group head; the rest under <b>(outside group)</b>.</td></tr><tr><td>by face count</td><td>Headers by order of magnitude: below 1 000, 1 000 to 9 999 ... The first use counts faces of every object.</td></tr></tbody></table>
+<ul><li>Collapse or expand all headers with <b>Collapse lens headers</b> / <b>Expand lens headers</b>.</li><li><b>Lens at startup</b> (Preferences) chooses the lens applied every time the panel opens.</li><li>The row background drop-down colours rows <i>by layer</i>, <i>by class</i>, <i>by material</i> or <i>by object color</i>, so group boundaries show without reading.</li><li>The <b>Explorer:</b> list on the bottom bar has ready layouts that set filter, lens and colours at once: Whole scene, Layers (Layer Explorer), Lights (Light Explorer), Cameras, Geometry, Shapes and splines, Bones and animation, Particles and deformers, Helpers, Containers (Container Explorer). Below them are your own layouts, <b>Save current layout as...</b> and <b>Manage layouts...</b>.</li></ul>
+<h2 id="layers">8. Layers</h2>
+<h3>The layer list</h3>
+<ul><li>Shows every layer with its object count; the current layer is bold. Hide it with the <b>Layer list</b> box on the bottom bar or <b>Layer list: show or hide</b>.</li><li>Click a layer: puts <code>layer:name</code> into the filter. Double-click: makes it current.</li><li>Drag objects from the list onto a layer to move them. Drag a layer onto another layer to nest it; drop it on an empty part to move it back to the root. 3ds Max refuses loops (a parent under its own child).</li><li><kbd>Alt</kbd>+click a layer: <b>solo</b>. Only that layer stays on; <kbd>Alt</kbd>+click again restores the previous layout. One undo step.</li></ul>
+<h3>Layer menu (right-click a layer)</h3>
+<ul><li><b>Hide layer</b> / <b>Show layer</b>, <b>Freeze layer</b> / <b>Unfreeze layer</b>, <b>Solo: only this layer (Alt+click)</b> / <b>End solo (restore layers)</b>.</li><li><b>Select the layer's objects</b> (also those the filter hides), <b>Set as current</b>, <b>Put into the filter as layer:</b>.</li><li><b>New layer...</b>, <b>New layer UNDER ...</b>, <b>Layer color...</b>, <b>Rename layer...</b>.</li><li><b>Delete layer</b> (3ds Max refuses a layer that holds objects) and <b>Delete layer with sublayers...</b> (asks what to do with the contents: move to layer 0, delete with the layers, or touch only empty layers; one undo step brings everything back).</li><li><b>Face budget for layer...</b>: the layer list shows faces / budget and turns red above it. 0 removes it.</li></ul>
+<h3>Layers from the row menu</h3>
+<p>Right-click objects, <b>Layer</b>: <b>To the current layer</b>, <b>Choose layer...</b> (a window with a name filter, quick with many layers), <b>New layer from selection...</b>, <b>New empty layer...</b>, <b>Set the selection's layer as current</b>, or pick a layer from the list.</p>
+<h3>Layer states <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd></h3>
+<p>Saves the visibility, freeze, lock and colour of all layers, and the current layer, under a name. <b>Restore checked parts</b> restores only what you tick; <b>What changed?</b> lists the differences layer by layer. The states are saved in the scene file. The same window also lists 3ds Max <b>Scene States</b> (<b>Restore Scene State</b>, <b>Save Scene State (layers)...</b>).</p>
+<h2 id="groups">9. Groups, hierarchy and pivots</h2>
+<h3>Groups</h3>
+<p>Row menu <b>Group</b>: <b>Group...</b> (asks for a name), <b>Ungroup</b> (one level), <b>Explode (with nested)</b>, <b>Open group</b>, <b>Close group</b>, <b>Detach from group</b>. The palette also has <b>Group selected</b> and <b>Ungroup</b>. Filter with <code>group:head</code>, <code>group:member</code> or the <b>by group</b> lens.</p>
+<h3>Hierarchy</h3>
+<p><b>Unlink from parent</b> makes the selected objects scene roots without moving them. Linking is done by dragging rows onto a row.</p>
+<h3>Pivot</h3>
+<p>Row menu <b>Pivot</b> (also in the palette as <b>Pivot: ...</b>). The objects do not move, only their pivot.</p>
+<table><thead><tr><th>Command</th><th>Pivot goes to</th></tr></thead><tbody><tr><td class="zawijaj">Center to object</td><td>The centre of the bounding box (like Hierarchy &gt; Pivot &gt; Center to Object).</td></tr><tr><td class="zawijaj">To bottom (on the floor)</td><td>The middle of the lowest face of the bounding box in world space.</td></tr><tr><td class="zawijaj">To top</td><td>The middle of the top of the bounding box.</td></tr><tr><td class="zawijaj">To bounding-box corner</td><td>The minimum corner; handy for tiling and arrays.</td></tr><tr><td class="zawijaj">To world origin</td><td>[0,0,0].</td></tr><tr><td class="zawijaj">To parent's pivot</td><td>The parent's pivot position; objects without a parent are skipped and counted.</td></tr><tr><td class="zawijaj">To common centre of selection</td><td>One shared pivot: the centre of the whole selection.</td></tr><tr><td class="zawijaj">Align to object / Align to world</td><td>Rotates the pivot axes.</td></tr><tr><td class="zawijaj">Copy orientation from first selected</td><td>The pivot orientation of the first selected object, given to the others.</td></tr><tr><td class="zawijaj">Reset pivot / Reset transform / Reset scale</td><td>The 3ds Max reset commands.</td></tr></tbody></table>
+<div class="uwaga"><b>Note.</b> Changing pivot orientation on an object with non-uniform scale also moves and deforms it. 3ds Max does this without warning; SceneForge counts such objects and asks first. Run <b>Reset scale</b> before, if needed.</div>
+<h2 id="isolation">10. Isolation and viewport modes</h2>
+<table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td class="zawijaj">Isolate selected <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Q</kbd></td><td>Hides everything except the selection and remembers the previous visibility of objects and layers. Press again to exit.</td></tr><tr><td class="zawijaj">Isolate with descendants</td><td>The same, with the whole subtrees of the selected objects.</td></tr><tr><td class="zawijaj">Exit isolation</td><td>Restores exactly what was visible before, including objects you had hidden by hand and layers that were off.</td></tr><tr><td class="zawijaj">view: freeze the rest <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td>Freezes everything the filter does not show. Those objects stay visible as a reference but cannot be clicked.</td></tr><tr><td class="zawijaj">view: hide the rest</td><td>Hides everything the filter does not show: isolation driven by the filter.</td></tr><tr><td class="zawijaj">Release view <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td>Leaves the viewport mode and restores the previous state.</td></tr><tr><td class="zawijaj">X-ray the rest</td><td>Selected objects stay solid, everything else becomes See-Through. Click again to undo it on exactly those objects.</td></tr></tbody></table>
+<ul><li>Isolation and the viewport filter modes are <b>modes, not edits</b>: <kbd>Ctrl</kbd>+<kbd>Z</kbd> does not leave them. Use the bar above the list or the same shortcut.</li><li>While the filter drives the viewport (hide the rest), isolation is not available; release the view first.</li></ul>
+<h3>Viewport colouring</h3>
+<p><b>Viewport: color objects by layer / by class / by material / by face count</b> (palette) replaces the wireframe colour of every object. By face count gives a green to red heat map of the scene's weight. This <b>is a scene change</b>: a bar above the list reminds you, and <b>Restore wireframe colors</b> (bar button or palette) brings back the originals in one undo step. If you save the file while painted, the painted colours are saved.</p>
+<h2 id="palette">11. Command palette, Menu button and undo</h2>
+<p><kbd>Ctrl</kbd>+<kbd>P</kbd> (while the panel has focus) opens the <b>command palette</b>: every panel command with a short description. Type a few letters in any order of words; letters need not be adjacent. While the field is empty or holds one or two letters, the commands you used last come first. A grey command shows why it is not available now.</p>
+<p>The <b>Menu</b> button holds the same commands in groups: <b>List and view</b>, <b>Viewport</b>, <b>Layers</b>, <b>Selection</b>, <b>Material</b>, <b>Objects</b>, <b>Reports and rules</b>, <b>Settings and tools</b>, <b>Configuration</b>, <b>Help</b> and <b>Other</b> (for example the <b>Pivot</b> commands). Shortcuts are shown on the right.</p>
+<p>The <b>Help</b> group has <b>About SceneForge</b>, <b>Documentation</b>, <b>Report a bug...</b>, <b>Suggest a feature...</b> and <b>More plugins by the author</b>, the same as the SceneForge menu.</p>
+<h3>Undo and redo</h3>
+<p>Every panel operation that changes the scene is one entry in the 3ds Max undo history. While the list has focus <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes and <kbd>Ctrl</kbd>+<kbd>Y</kbd> or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> redoes. In the filter field and the name editor <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes typing. <b>Undo last operation</b> and <b>Redo undone operation</b> are also in the palette.</p>
+<p>If an undo block stays open (for example after an interrupted script), 3ds Max silently stops recording undo. The panel notices it and shows a yellow bar with <b>Close block</b>. The palette command is <b>Close the stuck undo block</b>. Use it only when no operation is running.</p>
+<h2 id="reports">12. Scene reports</h2>
+<p><b>Reports</b> button, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>, or <b>SceneForge &gt; SceneForge - Scene reports</b>. Nothing is computed when the window opens: each tab has its own button, so opening the window never stalls 3ds Max. Most tabs can select what they show and save it as CSV.</p>
+<table><thead><tr><th>Tab</th><th>What it answers</th></tr></thead><tbody><tr><td class="zawijaj">Geometry duplicates</td><td><b>Find duplicates</b> lists groups of objects with identical geometry. <b>Check geometry</b> compares vertex positions; <b>Merge into instances</b> turns a group into instances, <b>Merge ALL</b> does it for every group (groups whose geometry differs are skipped and named). <b>Select group</b>, <b>CSV export</b>.</td></tr><tr><td class="zawijaj">Scene weight</td><td><b>Compute scene weight</b>: faces and objects per layer and per class; <b>Select the chosen</b>.</td></tr><tr><td class="zawijaj">Textures</td><td><b>Check textures</b>: every bitmap file, its size on disk and whether it is missing. <b>Relink missing...</b> searches a folder (with subfolders) for files of the same name. <b>Select objects using it</b>.</td></tr><tr><td class="zawijaj">Naming</td><td>Rules as <code>name|regular expression</code>, one per line. <b>Check names</b>, <b>Select violators</b>, <b>Save rules</b>, <b>Preview</b> and <b>Fix names</b>. Before fixing, the old names are written to a CSV file next to the scene.</td></tr><tr><td class="zawijaj">Snapshot comparison</td><td><b>Remember baseline</b>, later <b>Compare</b>: added, removed and changed objects. <b>Show changed in the list</b> puts <code>is:changed</code> into the filter.</td></tr><tr><td class="zawijaj">Timeline</td><td>Recent scene events with time and name (added, deleted, renamed, hidden, undo and redo). <b>in the list</b> puts <code>changed:&lt;N m</code> into the filter.</td></tr><tr><td class="zawijaj">Scene card</td><td><b>Count</b>, then <b>Save HTML...</b>: one HTML page with the scene's numbers (objects, layers, faces, heaviest layers and classes, health, textures, duplicates) for someone without 3ds Max.</td></tr></tbody></table>
+<h2 id="health">13. Scene health (Scene Doctor)</h2>
+<p>The <b>Health</b> button (also <b>Scene health</b> in the palette and the row menu) scans the whole scene for things that raise no error but spoil the work. Findings are listed with counts, most serious first; zero findings stay on the list in grey, so <i>checked and clean</i> is visible.</p>
+<ul><li><b>Show these objects</b> (or double-click a finding) selects them and puts <code>is:selected</code> into the filter.</li><li><b>Fix</b> repairs a finding when the fix is unambiguous. A <b>Scene Doctor</b> confirmation says how many objects it touches. One undo step reverts it.</li><li><b>Recompute</b> rebuilds the snapshot and checks again.</li></ul>
+<table><thead><tr><th>Finding</th><th>Fix</th></tr></thead><tbody><tr><td class="zawijaj">Zero scale</td><td>Scale 1,1,1 (only objects whose own scale is zero).</td></tr><tr><td class="zawijaj">Negative scale</td><td>Scale 1,1,1 (mirroring disappears; check normals).</td></tr><tr><td class="zawijaj">Far from the origin</td><td>Moves the objects together so the centre of their pivots lands at 0,0,0.</td></tr><tr><td class="zawijaj">No material</td><td>Renderable geometry gets a shared Physical Material named <code>SceneForge_Default</code>.</td></tr><tr><td class="zawijaj">Duplicate names</td><td>The first keeps its name, the next ones get a free number.</td></tr><tr><td class="zawijaj">Hidden and frozen at once</td><td>Unhide and unfreeze.</td></tr><tr><td class="zawijaj">Empty layers</td><td>Deletes layers without objects and sublayers (never the current one or layer 0).</td></tr><tr><td class="zawijaj">Meshes without faces</td><td>Deletes them (particle systems, procedural objects and groups are kept).</td></tr><tr><td class="zawijaj">Non-uniform scale</td><td>Reported only; no automatic fix.</td></tr></tbody></table>
+<h2 id="rules">14. Scene rules</h2>
+<p><b>Scene rules...</b> (palette, side bar) stores rules made of a filter query and an action. A rule works on the <b>whole scene</b>, also on objects the list does not show.</p>
+<ul><li>Fields: <b>Name</b>, <b>Query</b> (filter language), <b>Action</b>, <b>Argument</b> (the layer name for Move to layer).</li><li>Actions: Hide, Show, Freeze, Unfreeze, Select in scene, Display as box: on / off, See-Through: on / off, Disable rendering, Enable rendering, Move to layer (argument).</li><li><b>Test</b> counts matching objects and changes nothing. <b>Run</b> runs one rule; <b>Run all</b> runs them top to bottom after showing the counts. Each run is one undo step.</li><li><b>Automatic rules</b> (Preferences, off by default): after opening a file and after an import the panel waits 1.5 s and runs all rules (after an import only on the new objects).</li></ul>
+<h2 id="rename">15. Batch rename and name by template</h2>
+<h3>Batch rename <kbd>Ctrl</kbd>+<kbd>F2</kbd></h3>
+<p>Works on the selected objects. The steps always run in this order: base name, trim, find and replace, letter case, number, prefix and suffix.</p>
+<ul><li><b>Base name</b> (empty keeps the names), <b>Prefix</b>, <b>Suffix</b>, <b>Trim characters</b> <i>from the front</i> / <i>from the end</i>.</li><li><b>Find</b> / <b>Replace with</b>, with <b>regular expression</b> (groups <code>$1</code>, <code>$2</code> work) and <b>case sensitive</b>.</li><li><b>Letter case</b>: no change, UPPERCASE, lowercase, Each Word Capitalized.</li><li><b>Numbering</b>: start, step, digits. The order is the row order in the list, so sort the list first.</li><li>The preview shows <i>now</i> and <i>after change</i>, counts repeated names and skips rows that would get an empty name. <b>Rename</b> applies it to all selected objects in one undo step and saves the old names to a CSV file next to the scene.</li></ul>
+<h3>Name by template</h3>
+<p>Row menu <b>Name by template...</b>: a template with tokens <code>{name}</code>, <code>{class}</code>, <code>{layer}</code>, <code>{mat}</code> and a counter <code>{##}</code> (as many digits as hashes), for example <code>{layer}_{class}_{##}</code>. Preview, then <b>Rename</b>, one undo step.</p>
+<h2 id="objects">16. Object properties, materials, cameras and lights</h2>
+<h3>Object properties <kbd>Alt</kbd>+<kbd>Enter</kbd></h3>
+<p>The General properties of 3ds Max for many objects at once: Hidden, Frozen, See-Through, As box, Backface cull, All edges, Vertex ticks, Trajectory, Ignore in Zoom Extents, Frozen in material color, vertex colour display, Renderable and more. A field whose value differs between objects shows a mixed state and is not written until you change it.</p>
+<h3>Display and rendering (row menu)</h3>
+<ul><li><b>Hide</b>, <b>Show</b>, <b>Freeze</b>, <b>Unfreeze</b>, <b>Renderable: on</b> / <b>off</b>.</li><li><b>Display</b>: As box, See-through, Backface cull, All edges, Vertex ticks, Trajectory, Frozen in color (on / off).</li><li><b>Inherit from layer</b>: display, motion blur and colour, each <i>take from layer</i> or <i>set on the object</i>. An object that takes a property from its layer ignores its own setting.</li><li><b>Object color...</b>, <b>Zoom in viewport</b>.</li></ul>
+<h3>Materials</h3>
+<ul><li>Row menu <b>Material</b>: <b>Open material in editor</b> (Slate or classic, whichever mode is on), <b>Put material into the active slot of the classic editor</b>, <b>Assign material from slot</b> (the 24 classic slots), <b>Assign material from Slate editor</b>, <b>Copy material from the first selected to the rest</b> (the same material, not a copy), <b>Replace this material in the whole scene with...</b>, <b>Remove material</b>, <b>Show objects with this material (filter)</b>.</li><li>Under the <b>by material</b> lens, drag rows onto a material header to assign it.</li></ul>
+<h3>Instances</h3>
+<p>Row menu <b>Instances</b>: <b>Select all instances of this object</b>, <b>Select instances TOGETHER with references</b>, <b>Show only instances (filter)</b>, <b>Count instances in the scene</b>.</p>
+<h3>Cameras and lights</h3>
+<ul><li><b>Create camera from view</b> (palette): a camera that matches the active perspective view, in the class of the current renderer (V-Ray Physical Camera, Corona Camera, FStorm Camera, or a Physical Camera for Arnold and the others). The viewport switches to it. One undo step.</li><li><b>Look through this camera</b> (or double-click a camera row).</li><li><b>Turn lights on</b> / <b>Turn lights off</b> for the selected lights, one undo step.</li><li><b>Render selected cameras in sequence...</b> (EXPERIMENTAL, enable in Preferences, <b>Render queue</b>): each selected camera is rendered with the current renderer to <code>folder\camera_name.png</code>. 3ds Max is blocked until the queue ends. Save the scene first.</li></ul>
+<h3>Tags and notes</h3>
+<p>Row menu <b>Tags...</b> (labels separated by commas) and <b>Note...</b>. They are stored as user properties <code>sf_tag</code> and <code>sf_note</code> (visible in Object Properties &gt; User Defined) and saved with the .max file. Columns <b>Tags</b> and <b>Note</b>, filter <code>tag:</code> and <code>note:</code>. Empty text removes them.</p>
+<h3>Containers</h3>
+<p><b>Containers in the scene...</b> lists containers with their state and source file. The row menu <b>Container</b> has Open, Close, Load contents, Unload contents, Reload, Update from source file, Make unique and Merge source into scene. Commands that need a source file refuse (and say why) when the container has never been saved.</p>
+<h3>Columns in the native Scene Explorer</h3>
+<p><b>Max explorer with SceneForge columns</b> opens a 3ds Max Scene Explorer with extra columns (instances, children, depth, subtree size and a short note). <b>Add SceneForge columns to your own explorer</b> appends them to the explorer you use; <b>Remove SceneForge columns from explorers</b> takes them off.</p>
+<h3>Delete</h3>
+<p>Row menu <b>Delete</b> deletes the selected objects in one undo step and asks first when there are many.</p>
+<h2 id="macros">17. Macros, states, views and configuration</h2>
+<h3>Macros</h3>
+<ul><li><b>Macro: start recording</b>, then work: filters, palette, Menu and shortcut commands and row menu actions are noted. <b>Macro: stop and save...</b> asks for a name.</li><li>Each macro becomes a palette command <b>Macro: name</b>, so it can also get its own shortcut.</li><li><b>Macros: list, run, delete...</b> shows the steps, runs or deletes macros (stored in <code>makra.json</code>).</li></ul>
+<h3>Object visibility states</h3>
+<p><b>Object visibility states...</b>: named snapshots of which objects are hidden and frozen. <b>Save current state...</b>, <b>Restore</b> (exactly that layout, one undo step), <b>Delete state</b>. Saved in the scene file.</p>
+<h3>Saved views</h3>
+<ul><li>A view remembers filter, sorting, lens, column widths and the panel split. It does not remember the selection.</li><li><b>Views</b> button or <b>Save current view...</b>; the first nine load with <kbd>Ctrl</kbd>+<kbd>1</kbd> to <kbd>Ctrl</kbd>+<kbd>9</kbd>. <b>Manage views...</b> renames, reorders, overwrites and deletes them.</li><li>Views are stored in the plugin settings, not in the scene file.</li></ul>
+<h3>Configuration</h3>
+<ul><li><b>Configuration: remember panel state on/off</b>: filter, sorting, lens, column widths, split and the second view are saved by themselves and come back when the panel opens. On by default.</li><li><b>Configuration: save to file...</b> / <b>load from file...</b>: preferences, layout and views in one JSON file, to keep several set-ups or move them to another computer.</li><li><b>Configuration: save current as default</b> / <b>load default</b>.</li><li><b>Panel settings in the scene file: save now</b> writes filter, lens, columns, pins and budgets into the scene (see <i>Privacy &amp; footprint</i>).</li></ul>
+<h2 id="export">18. Export and import</h2>
+<table><thead><tr><th>Command</th><th>What it does</th></tr></thead><tbody><tr><td class="zawijaj">Export list to CSV...</td><td>Saves what the list shows (visible columns, current filter and order), or only the selected rows. Separator: semicolon, comma or tab; optional header row; preview before saving.</td></tr><tr><td class="zawijaj">Export layers to files...</td><td>Every checked layer with objects into its own <code>.max</code> (saveNodes) or <code>.fbx</code> (current FBX settings) file, named after the layer.</td></tr><tr><td class="zawijaj">Annotations: export to JSON... / import from JSON...</td><td>Tags, notes and pins of all objects, matched by name. Missing names are listed. The import is one undo step.</td></tr><tr><td class="zawijaj">Merge file with name check...</td><td>Reads object names from a .max file without opening it, lists name collisions with the scene and merges with a prefix for the colliding ones. The merge cannot be undone with Ctrl+Z; the merged objects stay selected.</td></tr><tr><td class="zawijaj">Differences between two .max files...</td><td>Object names in file A and file B (or the current scene) without opening them: only in A, only in B, common. <b>Save CSV...</b>. A renamed object shows as removed plus added.</td></tr></tbody></table>
+<h2 id="performance">19. Performance and Light mode</h2>
+<p>The <b>Performance</b> button sits under the status line. Next to it, <b>Geometry:</b> tells you the state of the automatic face and vertex counting (for example <i>not checked</i>, <i>pending</i>, <i>automatic counting paused</i>).</p>
+<table><thead><tr><th>Menu item</th><th>What it does</th></tr></thead><tbody><tr><td class="zawijaj">Light mode</td><td>A switch. Pauses the automatic geometry counting: the Faces, Verts, Size and Mod. columns, the layer face budgets and the footer counters. Use it on very heavy scenes. The setting is remembered.</td></tr><tr><td class="zawijaj">Recalculate selected geometry</td><td>Counts faces for the selected objects now, on demand.</td></tr><tr><td class="zawijaj">Measure slow objects...</td><td>Measures how long 3ds Max takes to read the geometry of each object, for the <i>Selected objects</i> or the <i>Whole scene</i>. Slowest first. <b>Measure</b>, <b>Cancel</b>, <b>Select object</b>. A scene change cancels the measurement.</td></tr><tr><td class="zawijaj">Record callback diagnostics</td><td>A switch. Writes timings of the panel's internal events to the panel log. Turn it on only when you report a slowdown or a freeze, and off afterwards.</td></tr></tbody></table>
+<ul><li><b>Footer counters</b> (Preferences, EXPERIMENTAL, off by default): objects, faces, triangles and vertices for the selection and for the whole scene. The scene total must evaluate every object once, which can take seconds on a big scene.</li><li>On long operations the panel shows a wait cursor and a message in the status line.</li><li>A hidden panel does no geometry work. The list draws only the rows you can see.</li></ul>
+<h2 id="shortcuts" class="czesc">20. Keyboard shortcuts</h2>
+<p>Panel shortcuts work while the panel has focus (click a row or the panel). Outside the panel 3ds Max keeps all its own shortcuts.</p>
+<table><thead><tr><th>Key</th><th>Does</th></tr></thead><tbody><tr><td><kbd>Ctrl</kbd>+<kbd>P</kbd></td><td>Command palette</td></tr><tr><td><kbd>F2</kbd></td><td>Rename in place</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>F2</kbd></td><td>Batch rename</td></tr><tr><td><kbd>Alt</kbd>+<kbd>Enter</kbd></td><td>Object properties</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>A</kbd> / <kbd>Ctrl</kbd>+<kbd>D</kbd> / <kbd>Ctrl</kbd>+<kbd>I</kbd></td><td>Select all in view / clear selection / invert</td></tr><tr><td><kbd>Alt</kbd>+<kbd>Left</kbd> / <kbd>Alt</kbd>+<kbd>Right</kbd></td><td>Previous / next selection</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Q</kbd></td><td>Isolate selected / exit isolation</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td>Filter drives the view: freeze the rest / release view</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd></td><td>Show only selected</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd></td><td>Presentation mode</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></td><td>Scene reports</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd></td><td>Layer states</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>1</kbd> ... <kbd>Ctrl</kbd>+<kbd>9</kbd></td><td>Load saved view 1 to 9</td></tr><tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd></td><td>Undo / redo (list has focus)</td></tr><tr><td><kbd>Home</kbd> <kbd>End</kbd> <kbd>PgUp</kbd> <kbd>PgDn</kbd></td><td>Scroll the list (list has focus); the step is set with <b>PgUp/PgDn:</b> on the bottom bar</td></tr><tr><td><kbd>Shift</kbd> + wheel</td><td>Scroll the list sideways</td></tr><tr><td><kbd>Alt</kbd> + click a layer</td><td>Layer solo</td></tr><tr><td><kbd>Ctrl</kbd> + drag</td><td>Select rows by dragging</td></tr></tbody></table>
+<h3>Your own shortcuts</h3>
+<p><b>Custom keyboard shortcuts...</b> (palette, Preferences &gt; <b>Keyboard shortcuts...</b>, or right-click the Preferences icon on the side bar). Every panel command is listed, including your macros and the Pivot commands. Double-click a command (or <b>Assign shortcut to selected...</b>) and press the keys; <kbd>Delete</kbd> in the table clears it. A shortcut needs <kbd>Ctrl</kbd> or <kbd>Alt</kbd> or must be a function key. It works while the panel has focus and, there, takes priority over a 3ds Max shortcut with the same keys.</p>
+<p>To open the panel itself with a key, use 3ds Max: <b>Customize User Interface</b>, category <b>SceneForge</b>, command <b>SceneForge Outliner</b>.</p>
+<h2 id="preferences">21. Preferences</h2>
+<p><b>Preferences...</b> (palette, Menu, side bar icon). The settings are saved in <code>plugcfg\SceneForge\preferencje.json</code>.</p>
+<table><thead><tr><th>Setting</th><th>Meaning</th></tr></thead><tbody><tr><td class="zawijaj">Refresh</td><td>Refresh the list automatically after scene changes (the same as the <b>auto</b> box).</td></tr><tr><td class="zawijaj">Filter delay</td><td>Wait after the last key before filtering (default 250 ms).</td></tr><tr><td class="zawijaj">Undo guard</td><td>Warn about a stuck undo block; samples before the alarm; optionally close a stuck block by itself after a quiet period.</td></tr><tr><td class="zawijaj">Row height</td><td>List row height (0 = system default).</td></tr><tr><td class="zawijaj">Lens at startup / Row background at startup</td><td>Applied every time the panel opens, or as in the last session.</td></tr><tr><td class="zawijaj">Safety</td><td>Ask before deleting layers with sublayers.</td></tr><tr><td class="zawijaj">Double-click</td><td>Double-click selects the object with its whole subtree.</td></tr><tr><td class="zawijaj">Selection from the scene / scrolling</td><td>Highlight in the list what is selected in the scene, and scroll to it.</td></tr><tr><td class="zawijaj">Scene file</td><td>Save panel settings in the scene file (on by default).</td></tr><tr><td class="zawijaj">Footer counters</td><td>EXPERIMENTAL face counters for the selection and the scene.</td></tr><tr><td class="zawijaj">Render queue</td><td>EXPERIMENTAL: enables <b>Render selected cameras in sequence</b>.</td></tr><tr><td class="zawijaj">Expert mode</td><td>EXPERIMENTAL: keep the panel visible in 3ds Max Expert mode (<kbd>Ctrl</kbd>+<kbd>X</kbd>).</td></tr><tr><td class="zawijaj">Hierarchy lines</td><td>Draw hierarchy guide lines.</td></tr><tr><td class="zawijaj">Filter chips</td><td>Show the chip bar under the filter field.</td></tr><tr><td class="zawijaj">Automatic rules</td><td>Run all scene rules after opening a file and after importing (off by default).</td></tr><tr><td class="zawijaj">Keyboard shortcuts...</td><td>Opens the custom shortcuts window.</td></tr></tbody></table>
+<h2 id="bugs" class="czesc">22. Reporting bugs</h2>
+<p>Thank you for testing. Every report is read.</p>
+<h3>How to report</h3>
+<ul><li>In 3ds Max choose <b>SceneForge &gt; Report a bug...</b> (also in the panel: Menu &gt; Help, or the palette).</li><li>It copies your set-up details to the clipboard and asks: <b>Yes</b> opens the GitHub bug form, <b>No</b> opens your e-mail program. Nothing is sent automatically.</li><li>Describe what you did, what you expected and what happened instead. Then paste the details (<kbd>Ctrl</kbd>+<kbd>V</kbd>). A screenshot helps a lot.</li><li>GitHub: <a href="https://github.com/Forge-Plugins/SceneForge/issues">github.com/Forge-Plugins/SceneForge/issues</a> &nbsp; E-mail: <a href="mailto:forgeplugins@gmail.com">forgeplugins@gmail.com</a></li><li>Ideas: <b>SceneForge &gt; Suggest a feature...</b>, the same two ways.</li></ul>
+<div class="uwaga"><b>Check before you post publicly.</b> The copied details contain the SceneForge and 3ds Max versions, the 3ds Max language, the Windows version, the install folder (it includes your Windows user name), the number of objects in the scene and the last lines of the panel log, which can contain file paths and object names. Read the text before you paste it on GitHub. For client scenes, send the report by e-mail instead.</div>
+<h3>What helps</h3>
+<ul><li>The steps to repeat the problem, and how often it happens.</li><li>Roughly how many objects and layers the scene has, and which renderer is active.</li><li>For a freeze or a slow operation: switch on <b>Performance &gt; Record callback diagnostics</b>, repeat the problem, switch it off, then send the panel log <code>dziennik_panelu.txt</code> from <code>plugcfg\SceneForge</code>.</li><li>Any message from the MAXScript Listener (<kbd>F11</kbd>).</li></ul>
+<h2 id="privacy">23. Privacy &amp; footprint</h2>
+<h3>Network</h3>
+<p>SceneForge works offline. It does not connect to the internet, sends no data and has no telemetry. A browser or e-mail program opens only when you choose <b>Report a bug...</b>, <b>Suggest a feature...</b> or <b>More plugins by the author</b>.</p>
+<h3>What can end up in your .max files</h3>
+<table><thead><tr><th>What</th><th>When</th><th>How to avoid or remove it</th></tr></thead><tbody><tr><td class="zawijaj">Panel settings: filter, lens, visible columns, pins, face budgets (in the scene root's appData)</td><td>Every time you save, while <b>Scene file</b> is on (default). Also with <b>Panel settings in the scene file: save now</b>.</td><td>Preferences &gt; <b>Scene file</b> off.</td></tr><tr><td class="zawijaj">Object visibility states</td><td>Only when you save one.</td><td>Delete the state in its window.</td></tr><tr><td class="zawijaj">Layer states</td><td>Only when you save one.</td><td>Delete the state in its window.</td></tr><tr><td class="zawijaj">A marker that automatic rules already ran on this file</td><td>Only with <b>Automatic rules</b> on.</td><td>Keep Automatic rules off (default).</td></tr><tr><td class="zawijaj">Tags and notes: user properties <code>sf_tag</code>, <code>sf_note</code></td><td>Only when you set them.</td><td>Set empty text, or edit Object Properties &gt; User Defined.</td></tr><tr><td class="zawijaj">Painted wireframe colours</td><td>Only after Viewport colouring, until you restore them.</td><td><b>Restore wireframe colors</b> before saving.</td></tr><tr><td class="zawijaj">Material <code>SceneForge_Default</code></td><td>Only when you use the Health fix for missing materials.</td><td>Delete or replace it like any material.</td></tr></tbody></table>
+<p>Everything else the panel does (isolation, viewport filter modes, X-ray, lenses, filters) lives only in memory and is not written to the file. Normal scene edits you make through the panel (renames, layers, hiding, materials ...) are of course saved like any other edit.</p>
+<h3>Files on your disk</h3>
+<ul><li>Plugin files in <code>scripts\SceneForge</code>, <code>usermacros</code> and <code>scripts\startup</code> (see <i>Where the files go</i>).</li><li>Settings, macros, views, rules and the panel log in <code>plugcfg\SceneForge</code>. The log is capped at 1 MB; the previous part is kept once.</li><li><code>scripts\SceneForge_events_log.txt</code>: written by the scene listener only if something goes wrong.</li><li>CSV files you save, the old-names CSV next to the scene after renames, exported layers, rendered images and scene cards, only where you choose (or next to the scene).</li></ul>
+<h2 id="limitations">24. Known limitations in this beta</h2>
+<ul><li><b>3ds Max 2027 only.</b> This package does not install in other versions.</li><li><b>Very large scenes</b> (around 50 000 objects): selecting or deselecting everything can take a moment, because 3ds Max redraws the viewport.</li><li><b>Undo and redo after deleting very many objects</b> can take a long time. This is how 3ds Max itself handles that undo step.</li><li><b>Merge file with name check</b> cannot be undone with <kbd>Ctrl</kbd>+<kbd>Z</kbd> (3ds Max records no history for a merge). The merged objects stay selected, so you can delete them.</li><li>Isolation and the viewport filter modes are modes, not undo steps.</li><li>Panel shortcuts, including <kbd>Ctrl</kbd>+<kbd>P</kbd>, work only while the panel has focus.</li><li>Features marked EXPERIMENTAL (footer counters, render queue, Expert mode) are not fully tested.</li><li>The filter does not yet support <code>is:zeroscale</code>, <code>is:nonuniform</code>, <code>is:faraway</code> or <code>has:</code> keys.</li><li>The user interface is in English only.</li></ul>
+<div class="stopka">SceneForge Outliner 1.0 beta &middot; ForgePlugins &middot; <a href="https://forgeplugins.tech">forgeplugins.tech</a> &middot; bugs and ideas: <a href="https://github.com/Forge-Plugins/SceneForge/issues">github.com/Forge-Plugins/SceneForge/issues</a> or <a href="mailto:forgeplugins@gmail.com">forgeplugins@gmail.com</a></div>
 </div>
+</body>
+</html>
